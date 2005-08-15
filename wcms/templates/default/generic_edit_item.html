@@ -1,0 +1,30 @@
+<!-- BEGIN generic_row -->
+<form action="{$action_url}" method="post" id="WikiInput">
+<div>
+<table style='width: 100%;'>
+	<tr>
+		<td style="white-space: nowrap; background-color: #CCCCCC; font-weight: bold; color: #000000;" colspan="2"><b>Editing: {$item_tag} / {$item_title}</b></td>
+	</tr>
+	<tr>
+		<td style='font-weight: bold; color: #000000; vertical-align: top; text-align: right;'><b>Page Title</b></td>
+		<td><input type='text' name='title' id='title' size='80' value='{$item_title}' maxlength='60' /></td>
+	</tr>
+	<tr>
+		<td style='font-weight: bold; color: #000000; vertical-align: top; text-align: right;'><b>Page Content</b></td>
+		<td><textarea id='data' name='data' cols='80' style='width:98%' rows='40'>{$item_content}</textarea></td>
+	</tr>
+	<tr>
+		<td style='font-weight: bold; color: #000000; vertical-align: top; text-align: right;'><b>Page Tag</b></td>
+		<td><input type='text' name='tag' id='tag' size='80' value='{$item_tag}' maxlength='60' /></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+      <input type='hidden' name='old_tag' value='{$old_tag}' />
+      <input name="btnClear" value="Reset" type="reset" /> <input name="btnSubmit" value="Submit" type="submit" />
+    </td>
+	</tr>
+</table>
+</div>
+</form>
+<!-- END generic_row -->

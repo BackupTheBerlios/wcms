@@ -1,0 +1,161 @@
+/* Import default forms css because we don't need to change it */
+@import "../default/forms.css";
+
+#main {
+    float: left;
+}
+
+#sidebar { 
+    margin: 0em 0em 1em 1.5em;
+    width: 19em;
+    clear: both;
+    float: right;
+}
+
+.sidebox {
+    padding: 0.5em 0em 1em 0.75em;
+    margin-top: 12px;
+}  
+
+
+a:link, a:visited, a:active { 
+    color: #303bc7; 
+    text-decoration: none; 
+    background-color: transparent;
+}
+a:active { background-color: #FD0; }
+a:hover { text-decoration: underline; }
+a.offsite:hover { background-color: #d0dbe7; text-decoration: none; }
+a img { border: none; }
+
+p { margin: 0; }
+p + p { margin-top: 0.5em; }
+
+body {
+        color: black;
+        background-color: #fdfdf6;
+        margin: 36pt 80pt;
+}
+
+p, td, th, li, dt, dd, blockquote { 
+        font: 1.15em/1.2em Garamond, "Times New Roman", Times, serif;
+}
+  pre { font-family: helvetica, sans-serif; }
+}
+
+
+
+/* headings  -------------------------------------------------- */
+
+h1, h2, h3, h4 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    background-color: transparent;
+    font-weight: normal;
+    padding: 0;
+}
+  h1, h2, h3, h4 {
+    margin: 1em 0 0 0; 
+    margin-bottom: 5px;
+    color: #740;
+    font-family: "Book Antiqua", Georgia, serif;
+    font-weight: normal;
+  }
+
+  h1 {
+    font-size: 2.2em;
+    line-height: 1em; 
+    padding: 0;
+    border-bottom: 1px solid #bbb;
+    background-color: transparent;
+    color: #333;    
+  }
+
+  h1 + p {
+  	margin-top: 1.5em;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    margin-top: 0.5em;
+    font-size: 1.25em;
+  }
+  
+  h4 + .navtop {
+    position: relative;
+    top: -1.3em;
+    text-align: right;
+  }
+
+table.grid th {
+  font-weight: normal;
+  text-align: right;
+  color: white;
+  background-color: #333;
+  padding: 3px 6px;
+}
+
+table.grid td {
+  background-color: #d0dbe7;
+  padding: 3px 6px;
+}
+
+
+
+
+ul { list-style-type: disc; margin: 0 0 0.5em 0.5em; padding-left: 1.5em; }
+dt { font-weight: bold; }
+dd { padding-bottom: 0.5em; }
+
+
+
+    ul { list-style-type: none; padding-left: 0em; }
+    ul li:before { content: '\FF0A\00A0 '; color: #740; font-size: 0.9em; } 
+    li { font-size: 1em; }
+
+
+/* other redefinitions ------------------------------------------ */
+
+acronym:hover, abbrev:hover { cursor: help; }
+abbrev[title], acronym[title], span[title] {
+  border-bottom: thin dotted;
+  cursor: help;
+}
+
+input, textarea, select {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  margin: 2px 1px;
+  padding: 1px;
+}
+
+
+hr {
+  border-style: none;
+  background-color: #ddd;
+  padding: 1px;
+}
+
+h1 + pre hr {
+  display: none;
+}
+
+blockquote {
+  border-style: solid;
+  border-color: #d0dbe7;
+  border-width: 0 0 0 .25em;
+  padding-left: 0.5em;
+  font-size: 1em;
+}
+
+q {
+  quotes: '\201C' '\201D' '\2018' '\2019'; 
+}

@@ -1,0 +1,30 @@
+{include file="header.html"}
+
+<div id="outerwrap">
+  <div id="wrap">
+    <div id="navdiv">
+      <ul id="nav">
+        <li><a href="{$site_root}">Home Page</a></li>
+        <li><a href="?page=content_training">Training</a></li>
+        <li><a href="?page=content_activities">Activities</a></li>
+        <li><a href="?page=content_find_us">Finding Us</a></li>
+        <li><a href="?page=content_partners">Partners</a></li>
+      </ul>
+    </div>
+    <div id="header">
+      <div id="headerimg">
+        <h1><a href="{$site_root}" title="{$site_name}">{$site_name}</a></h1>
+        <!--<div class="slogan">Site Description</div>-->
+      </div>
+    </div>
+    <div id="maincontent" class="narrowcolumn">
+<span style='color: #000000;'>{$breadcrumb}</span>
+{$page_content}
+    </div>
+  </div>
+  <div style='padding-top: 4px;' id="footer">
+{$page_footer}
+  </div>
+</div>
+
+{include file="footer.html"}

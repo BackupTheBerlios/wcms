@@ -1,0 +1,8 @@
+ErrorDocument 404 /error.php
+
+Options +FollowSymlinks
+ RewriteEngine on
+ RewriteRule ^edit/([_0-9a-zA-Z]+)/			edit.php?page=$1 [L]
+ RewriteRule ^delete/([_0-9a-zA-Z]+)/		delete.php?page=$1 [L]
+ RewriteRule ^history/([_0-9a-zA-Z]+)/		history.php?page=$1 [L]
+ RewriteRule ^content/([_0-9a-zA-Z]+).html	index.php?page=$1 [L]

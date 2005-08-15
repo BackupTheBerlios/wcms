@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <title>settings | drupal</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<base href="http://drupal.streakyland.co.uk/" />
+<style type="text/css" media="all">@import "misc/drupal.css";</style>
+  <style type="text/css" media="all">@import "themes/bluemarine/style.css";</style>
+  <script type="text/javascript"> </script>
+
+</head>
+
+<body>
+        
+        <h1 class="title">settings</h1>
+        <div id="help"><p>General configuration options for your site. Set up the name of the site, e-mail address used in mail-outs, clean URL options, caching, etc.</p>
+
+</div>
+        <div class="messages status">
+Created directory <em>files</em>.</div>
+
+<form action="/?q=admin/settings" method="post">
+<fieldset><legend>General settings</legend><div class="form-item">
+ <label for="edit-site_name">Name:</label><br />
+ <input type="text" maxlength="70" class="form-text" name="edit[site_name]" id="edit-site_name" size="70" value="drupal" />
+
+ <div class="description">The name of this web site.</div>
+</div>
+<div class="form-item">
+ <label for="edit-site_mail">E-mail address:</label><br />
+ <input type="text" maxlength="128" class="form-text" name="edit[site_mail]" id="edit-site_mail" size="70" value="" />
+ <div class="description">A valid e-mail address for this website, used by the auto-mailer during registration, new password requests, notifications, etc.</div>
+</div>
+<div class="form-item">
+ <label for="edit-site_slogan">Slogan:</label><br />
+
+ <input type="text" maxlength="128" class="form-text" name="edit[site_slogan]" id="edit-site_slogan" size="70" value="" />
+ <div class="description">The slogan of this website. Some themes display a slogan when available.</div>
+</div>
+<div class="form-item">
+ <label for="edit-site_mission">Mission:</label><br />
+ <textarea wrap="virtual" cols="70" rows="5" name="edit[site_mission]" id="edit-site_mission" class="textarea"></textarea>
+ <div class="description">Your site's mission statement or focus.</div>
+</div>
+
+<div class="form-item">
+ <label for="edit-site_footer">Footer message:</label><br />
+ <textarea wrap="virtual" cols="70" rows="5" name="edit[site_footer]" id="edit-site_footer" class="textarea"></textarea>
+ <div class="description">This text will be displayed at the bottom of each page.  Useful for adding a copyright notice to your pages.</div>
+</div>
+<div class="form-item">
+ <label for="edit-anonymous">Anonymous user:</label><br />
+ <input type="text" maxlength="70" class="form-text" name="edit[anonymous]" id="edit-anonymous" size="70" value="Anonymous" />
+
+ <div class="description">The name used to indicate anonymous users.</div>
+</div>
+<div class="form-item">
+ <label for="edit-site_frontpage">Default front page:</label><br />
+ <input type="text" maxlength="70" class="form-text" name="edit[site_frontpage]" id="edit-site_frontpage" size="70" value="node" />
+ <div class="description">The home page displays content from this relative URL.  If you are not using clean URLs, specify the part after "?q=".  If unsure, specify "node".</div>
+</div>
+<div class="form-item">
+ <label>Clean URLs:</label><br />
+
+ <label class="option"><input type="radio" class="form-radio" name="edit[clean_url]" value="0" checked="checked" /> Disabled</label><br /><label class="option"><input type="radio" class="form-radio" name="edit[clean_url]" value="1" /> Enabled</label><br />
+ <div class="description">This option makes Drupal emit clean URLs (i.e. without <code>?q=</code> in the URL). You'll need <code>ModRewrite</code> support for this to work. See the <code>.htaccess</code> file in Drupal's top-level directory for more information.</div>
+
+</div>
+<img style="position: relative; left: -1000em;" src="http://drupal.streakyland.co.uk/system/test/Loe2PRwFlP7DkrEtWlug.png" alt="" /></fieldset>
+<fieldset><legend>Error handling</legend><div class="form-item">
+ <label for="edit-site_403">Default 403 (access denied) page:</label><br />
+ <input type="text" maxlength="70" class="form-text" name="edit[site_403]" id="edit-site_403" size="70" value="" />
+ <div class="description">This page is displayed when the requested document is denied to the current user.  If you are not using clean URLs, specify the part after "?q=". If unsure, specify nothing.</div>
+</div>
+<div class="form-item">
+ <label for="edit-site_404">Default 404 (not found) page:</label><br />
+
+ <input type="text" maxlength="70" class="form-text" name="edit[site_404]" id="edit-site_404" size="70" value="" />
+ <div class="description">This page is displayed when no other content matches the requested document.  If you are not using clean URLs, specify the part after "?q=". If unsure, specify nothing.</div>
+</div>
+<div class="form-item">
+ <label for="edit-error_level">Error reporting:</label><br />
+ <select name="edit[error_level]" id="edit-error_level"><option value="0">Write errors to the log</option><option value="1" selected="selected">Write errors to the log and to the screen</option></select>
+ <div class="description">Where Drupal, PHP and SQL errors are logged. On a production server it is recommended that errors are only written to the error log. On a test server it can be helpful to write logs to the screen.</div>
+
+</div>
+<div class="form-item">
+ <label for="edit-watchdog_clear">Discard log entries older than:</label><br />
+ <select name="edit[watchdog_clear]" id="edit-watchdog_clear"><option value="3600">1 hour</option><option value="10800">3 hours</option><option value="21600">6 hours</option><option value="32400">9 hours</option><option value="43200">12 hours</option><option value="86400">1 day</option><option value="172800">2 days</option><option value="259200">3 days</option><option value="604800" selected="selected">1 week</option><option value="1209600">2 weeks</option><option value="2419200">4 weeks</option><option value="1000000000">Never</option></select>
+
+ <div class="description">The time log entries should be kept.  Older entries will be automatically discarded.  Requires crontab.</div>
+</div>
+</fieldset>
+<fieldset><legend>Cache settings</legend><div class="form-item">
+ <label>Cache support:</label><br />
+ <label class="option"><input type="radio" class="form-radio" name="edit[cache]" value="0" checked="checked" /> Disabled</label><br /><label class="option"><input type="radio" class="form-radio" name="edit[cache]" value="1" /> Enabled</label><br />
+ <div class="description">Enable or disable the caching of rendered pages.  When caching is enabled, Drupal will flush the cache when required to make sure updates take effect immediately.  Check the <a href="http://drupal.streakyland.co.uk/?q=admin/help/system#cache">cache documentation</a> for information on Drupal's cache system.</div>
+
+</div>
+</fieldset>
+<fieldset><legend>File system settings</legend><div class="form-item">
+ <label for="edit-file_directory_path">File system path:</label><br />
+ <input type="text" maxlength="255" class="form-text" name="edit[file_directory_path]" id="edit-file_directory_path" size="70" value="files" />
+ <div class="description">A file system path where the files will be stored. This directory has to exist and be writable by Drupal. If the download method is set to public this directory has to be relative to Drupal installation directory, and be accessible over the web. When download method is set to private this directory should not be accessible over the web. Changing this location after the site has been in use will cause problems so only change this setting on an existing site if you know what you are doing.</div>
+</div>
+<div class="form-item">
+ <label for="edit-file_directory_temp">Temporary directory:</label><br />
+
+ <input type="text" maxlength="255" class="form-text" name="edit[file_directory_temp]" id="edit-file_directory_temp" size="70" value="/tmp" />
+ <div class="description">Location where uploaded files will be kept during previews. Relative paths will be resolved relative to the file system path.</div>
+</div>
+<div class="form-item">
+ <label>Download method:</label><br />
+ <label class="option"><input type="radio" class="form-radio" name="edit[file_downloads]" value="1" checked="checked" /> Public - files are available using http directly.</label><br /><label class="option"><input type="radio" class="form-radio" name="edit[file_downloads]" value="2" /> Private - files are transferred by Drupal.</label><br />
+ <div class="description">If you want any sort of access control on the downloading of files, this needs to be set to <em>private</em>. You can change this at any time, however all download URLs will change and there may be unexpected problems so it is not recommended.</div>
+
+</div>
+</fieldset>
+<fieldset><legend>Image handling</legend>The built-in GD2 toolkit is installed and working properly.</fieldset>
+<fieldset><legend>Date settings</legend><div class="form-item">
+ <label for="edit-date_default_timezone">Default time zone:</label><br />
+ <select name="edit[date_default_timezone]" id="edit-date_default_timezone"><option value="-39600">Monday, August 1, 2005 - 22:24 -1100</option><option value="-36000">Monday, August 1, 2005 - 23:24 -1000</option><option value="-34200">Monday, August 1, 2005 - 23:54 -0930</option><option value="-32400">Tuesday, August 2, 2005 - 00:24 -0900</option><option value="-28800">Tuesday, August 2, 2005 - 01:24 -0800</option><option value="-25200">Tuesday, August 2, 2005 - 02:24 -0700</option><option value="-21600">Tuesday, August 2, 2005 - 03:24 -0600</option><option value="-18000">Tuesday, August 2, 2005 - 04:24 -0500</option><option value="-14400">Tuesday, August 2, 2005 - 05:24 -0400</option><option value="-12600">Tuesday, August 2, 2005 - 05:54 -0330</option><option value="-10800">Tuesday, August 2, 2005 - 06:24 -0300</option><option value="-7200">Tuesday, August 2, 2005 - 07:24 -0200</option><option value="-3600">Tuesday, August 2, 2005 - 08:24 -0100</option><option value="0" selected="selected">Tuesday, August 2, 2005 - 09:24 +0000</option><option value="3600">Tuesday, August 2, 2005 - 10:24 +0100</option><option value="7200">Tuesday, August 2, 2005 - 11:24 +0200</option><option value="10800">Tuesday, August 2, 2005 - 12:24 +0300</option><option value="12600">Tuesday, August 2, 2005 - 12:54 +0330</option><option value="14400">Tuesday, August 2, 2005 - 13:24 +0400</option><option value="18000">Tuesday, August 2, 2005 - 14:24 +0500</option><option value="19800">Tuesday, August 2, 2005 - 14:54 +0530</option><option value="20700">Tuesday, August 2, 2005 - 15:09 +0545</option><option value="21600">Tuesday, August 2, 2005 - 15:24 +0600</option><option value="23400">Tuesday, August 2, 2005 - 15:54 +0630</option><option value="25200">Tuesday, August 2, 2005 - 16:24 +0700</option><option value="28800">Tuesday, August 2, 2005 - 17:24 +0800</option><option value="32400">Tuesday, August 2, 2005 - 18:24 +0900</option><option value="34200">Tuesday, August 2, 2005 - 18:54 +0930</option><option value="36000">Tuesday, August 2, 2005 - 19:24 +1000</option><option value="37800">Tuesday, August 2, 2005 - 19:54 +1030</option><option value="39600">Tuesday, August 2, 2005 - 20:24 +1100</option><option value="41400">Tuesday, August 2, 2005 - 20:54 +1130</option><option value="43200">Tuesday, August 2, 2005 - 21:24 +1200</option><option value="45900">Tuesday, August 2, 2005 - 22:09 +1245</option><option value="46800">Tuesday, August 2, 2005 - 22:24 +1300</option><option value="50400">Tuesday, August 2, 2005 - 23:24 +1400</option></select>
+
+ <div class="description">Select the default site time zone.</div>
+</div>
+<div class="form-item">
+ <label>Configurable time zones:</label><br />
+ <label class="option"><input type="radio" class="form-radio" name="edit[configurable_timezones]" value="0" /> Disabled</label><br /><label class="option"><input type="radio" class="form-radio" name="edit[configurable_timezones]" value="1" checked="checked" /> Enabled</label><br />
+ <div class="description">Enable or disable user-configurable time zones.  When enabled, users can set their own time zone and dates will be updated accordingly.</div>
+
+</div>
+<div class="form-item">
+ <label for="edit-date_format_short">Short date format:</label><br />
+ <select name="edit[date_format_short]" id="edit-date_format_short"><option value="Y-m-d H:i" selected="selected">2005-08-02 10:24</option><option value="m/d/Y - H:i">08/02/2005 - 10:24</option><option value="d/m/Y - H:i">02/08/2005 - 10:24</option><option value="Y/m/d - H:i">2005/08/02 - 10:24</option><option value="m/d/Y - g:ia">08/02/2005 - 10:24am</option><option value="d/m/Y - g:ia">02/08/2005 - 10:24am</option><option value="Y/m/d - g:ia">2005/08/02 - 10:24am</option><option value="M j Y - H:i">Aug 2 2005 - 10:24</option><option value="j M Y - H:i">2 Aug 2005 - 10:24</option><option value="Y M j - H:i">2005 Aug 2 - 10:24</option><option value="M j Y - g:ia">Aug 2 2005 - 10:24am</option><option value="j M Y - g:ia">2 Aug 2005 - 10:24am</option><option value="Y M j - g:ia">2005 Aug 2 - 10:24am</option></select>
+
+ <div class="description">The short format of date display.</div>
+</div>
+<div class="form-item">
+ <label for="edit-date_format_medium">Medium date format:</label><br />
+ <select name="edit[date_format_medium]" id="edit-date_format_medium"><option value="D, Y-m-d H:i" selected="selected">Tue, 2005-08-02 10:24</option><option value="D, m/d/Y - H:i">Tue, 08/02/2005 - 10:24</option><option value="D, d/m/Y - H:i">Tue, 02/08/2005 - 10:24</option><option value="D, Y/m/d - H:i">Tue, 2005/08/02 - 10:24</option><option value="F j, Y - H:i">August 2, 2005 - 10:24</option><option value="j F, Y - H:i">2 August, 2005 - 10:24</option><option value="Y, F j - H:i">2005, August 2 - 10:24</option><option value="D, m/d/Y - g:ia">Tue, 08/02/2005 - 10:24am</option><option value="D, d/m/Y - g:ia">Tue, 02/08/2005 - 10:24am</option><option value="D, Y/m/d - g:ia">Tue, 2005/08/02 - 10:24am</option><option value="F j, Y - g:ia">August 2, 2005 - 10:24am</option><option value="j F, Y - g:ia">2 August, 2005 - 10:24am</option><option value="Y, F j - g:ia">2005, August 2 - 10:24am</option></select>
+
+ <div class="description">The medium sized date display.</div>
+</div>
+<div class="form-item">
+ <label for="edit-date_format_long">Long date format:</label><br />
+ <select name="edit[date_format_long]" id="edit-date_format_long"><option value="l, F j, Y - H:i" selected="selected">Tuesday, August 2, 2005 - 10:24</option><option value="l, j F, Y - H:i">Tuesday, 2 August, 2005 - 10:24</option><option value="l, Y,  F j - H:i">Tuesday, 2005,  August 2 - 10:24</option><option value="l, F j, Y - g:ia">Tuesday, August 2, 2005 - 10:24am</option><option value="l, j F, Y - g:ia">Tuesday, 2 August, 2005 - 10:24am</option><option value="l, Y,  F j - g:ia">Tuesday, 2005,  August 2 - 10:24am</option></select>
+ <div class="description">Longer date format used for detailed display.</div>
+
+</div>
+<div class="form-item">
+ <label for="edit-date_first_day">First day of week:</label><br />
+ <select name="edit[date_first_day]" id="edit-date_first_day"><option value="0" selected="selected">Sunday</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option></select>
+ <div class="description">The first day of the week for calendar views.</div>
+
+</div>
+</fieldset>
+<input type="submit" class="form-submit" name="op" value="Save configuration"  />
+<input type="submit" class="form-submit" name="op" value="Reset to defaults"  />
+
+</form>
