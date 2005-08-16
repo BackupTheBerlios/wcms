@@ -100,4 +100,57 @@ if(is_readable(path::file("plugins")."bbclone/")) {
 	}
 }
 
+/* Get Navbar and parse the content */
+$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote("navbar", 'text');
+$db->setLimit(1);
+$result = $db->query($query);
+$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+$result->free();
+$row = $rows[0];
+
+// load the class file
+require_once('Text/Wiki.php'); // Using include path (PEAR Class)
+
+// instantiate a Text_Wiki object with the default rule set
+$wiki =& new Text_Wiki();
+
+// when rendering XHTML, make sure wiki links point to a
+// specific base URL
+$wiki->setRenderConf('xhtml', 'wikilink', 'view_url', "?page=");
+$wiki->setRenderConf('xhtml', 'wikilink', 'new_url', "?page=");
+$wiki->setParseConf('wikilink', 'ext_chars', true);
+
+// setup images basedir
+$wiki->setRenderConf('xhtml', 'image', 'base', path::path("images"));
+
+// enable use of <html> - not so clever for public editable sites!
+$wiki->enableRule('html');
+
+// set an array of pages that exist in the wiki
+// and tell the XHTML renderer about them
+$query = ("SELECT cont_id, cont_ident, cont_title FROM content");
+$result = $db->query($query);
+$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+$result->free();
+foreach($rows as $tag_item) {
+	$tag = $tag_item['cont_ident'];
+	$pages[] = $tag;
+	$titles[$tag]['title'] = $tag_item['cont_title'];
+}
+
+$sites = array(
+'wikipedia' => "http://en.wikipedia.org/wiki/%s",
+);
+$wiki->setRenderConf('xhtml', 'interwiki', 'sites', $sites);
+$wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages);
+$wiki->setRenderConf('xhtml', 'wikilink', 'titles', $titles);
+
+$wiki->setRenderConf('xhtml', 'list', 'css_ul', "nav");
+
+$navbar_data = $wiki->transform($row['cont_content'], 'Xhtml');
+
+$smarty->assign("nav_ul", $navbar_data);
+$wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
+/* End navbar code */
+
 ?>
