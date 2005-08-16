@@ -135,6 +135,11 @@ function output_page() {
 	header("Content-Length: {$length}");
 	
 	echo $output;
+	
+	print_a($_SERVER);
+	
+	print_a($GLOBALS['_wikicms']);
+	
 	//echo "Memory Usage: ".get_memory_usage();
 }
 
