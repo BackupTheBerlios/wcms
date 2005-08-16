@@ -96,7 +96,7 @@ if(is_readable(path::file("plugins")."bbclone/")) {
 	define("_BBCLONE_DIR", path::file("plugins")."bbclone/");
 	define("COUNTER", _BBCLONE_DIR."mark_page.php");
 	if (is_readable(COUNTER)) {
-		include_once(COUNTER);
+		require_once(COUNTER);
 	}
 }
 
