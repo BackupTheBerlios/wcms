@@ -34,7 +34,6 @@ require_once("classes/generic_functions.php");
 check_dirs();
 
 require_once(path::file("classes")."vars_class.php");
-
 include_once(path::file("data")."settings.php");
 
 // implement smarty object
@@ -78,7 +77,7 @@ require_once(path::file("classes")."users_class.php");
 // Initiate session handler class
 require_once(path::file("classes")."session_class.php");
 $session_options = array(
-'db_object' => &$db,
+	'db_object' => &$db,
 );
 $sessions =& new session_handler($session_options);
 
