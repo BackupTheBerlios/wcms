@@ -78,7 +78,7 @@ function stripslashes_deep($value) {
 }
 
 function rewrite($content){
-	$pattern = "|/edit\.php\?page=(\w+)|";
+	/*$pattern = "|/edit\.php\?page=(\w+)|";
 	$content = preg_replace($pattern, "/edit/\${1}/", $content);
 
 	$pattern = "|/delete\.php\?page=(\w+)|";
@@ -88,7 +88,7 @@ function rewrite($content){
 	$content = preg_replace($pattern, "/history/\${1}/", $content);
 
 	$pattern = "|\?page=(\w+)|";
-	$content = preg_replace($pattern, "/content/\${1}.html", $content);
+	$content = preg_replace($pattern, "/content/\${1}.html", $content);*/
 	return $content;
 }
 

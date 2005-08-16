@@ -89,7 +89,4 @@ $users_row = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 $result->free();
 $perms = unserialize($users_row[0]['permissions']);
 
-	print_a($_SERVER);
-	print_a($GLOBALS['_wikicms']);
-
 ?>
