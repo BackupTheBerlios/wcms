@@ -2,7 +2,7 @@
 
 require_once("boot.php");
 
-$item = (!vars::get('page') ? "SandBox" : vars::get('page'));
+$item = (!vars::get('page') ? "home_page" : vars::get('page'));
 $item = preg_replace("#\W#", "", $item);
 
 if($perms['wiki']['edit_pages'] != true) {
