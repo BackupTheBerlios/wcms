@@ -22,10 +22,11 @@ ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARA
 require_once("classes/paths_class.php");
 $base_paths = path::parse_paths();
 $paths = array(
-	'classes'   => 'classes',
-	'data'      => 'data',
-	'templates' => 'templates',
-	'images'    => 'images',
+	'classes'    => 'classes',
+	'data'       => 'data',
+	'templates'  => 'templates',
+	'images'     => 'images',
+	'plugins'    => 'plugins',
 );
 path::set($base_paths['file'], $base_paths['http'], $paths);
 
@@ -34,6 +35,7 @@ require_once("classes/generic_functions.php");
 check_dirs();
 
 require_once(path::file("classes")."vars_class.php");
+
 include_once(path::file("data")."settings.php");
 
 // implement smarty object
@@ -77,7 +79,7 @@ require_once(path::file("classes")."users_class.php");
 // Initiate session handler class
 require_once(path::file("classes")."session_class.php");
 $session_options = array(
-	'db_object' => &$db,
+'db_object' => &$db,
 );
 $sessions =& new session_handler($session_options);
 
@@ -88,5 +90,14 @@ $result = $db->query($query);
 $users_row = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 $result->free();
 $perms = unserialize($users_row[0]['permissions']);
+
+if(is_readable(path::file("plugins")."bbclone/")) {
+	//define("_BBC_PAGE_NAME", "Test");
+	define("_BBCLONE_DIR", path::file("plugins")."bbclone/");
+	define("COUNTER", _BBCLONE_DIR."mark_page.php");
+	if (is_readable(COUNTER)) {
+		include_once(COUNTER);
+	}
+}
 
 ?>
