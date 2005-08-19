@@ -1,0 +1,13 @@
+<?php
+
+$settings = array (
+  'site' => array (
+    'long_name' => '<site_name>',
+  ),
+  'dsn' => 'mysql://<user>:<password>@<server_host>/<database>',
+  'theme' => 'default',
+  'cache' => 'off', // do not use yet.
+  'menus' => array()
+);
+
+?>
