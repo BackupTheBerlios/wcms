@@ -25,10 +25,11 @@ img {
 	}
 
 #bannertop{
-	height: 0px;
+	height: 74px;
 	padding: 5px; 
-	margin-bottom: 10px; 
-	background-color: #261257;
+	margin-bottom: 10px;
+	background-image: url("images/logo.png");
+	background-color: #1D2642;
 	background-repeat: no-repeat;
 	}
 
