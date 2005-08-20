@@ -139,7 +139,7 @@ function output_page() {
 	//echo "Memory Usage: ".get_memory_usage();
 }
 
-if(!function_exists("file_put_contents") {
+if(!function_exists("file_put_contents")) {
 	function file_put_contents($filename, $data) {
 		if (($h = @fopen($filename, 'w+')) === false) {
 			return false;
