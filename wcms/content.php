@@ -80,7 +80,7 @@ $smarty->assign("page_footer", $footer);
 $content_output = $smarty->fetch("{$settings['theme']}/generic_page_item.html");
 
 $smarty->assign("page_content", $content_output);
-$smarty->assign("page_title", "{$settings['site']['long_name']} :: {$item_title}");
+$smarty->assign("page_title", "{$settings['site']['long_name']} - {$item_title}");
 
 output_page();
 
