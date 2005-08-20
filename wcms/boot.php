@@ -149,13 +149,32 @@ $wiki->setRenderConf('xhtml', 'interwiki', 'sites', $sites);
 $wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages);
 $wiki->setRenderConf('xhtml', 'wikilink', 'titles', $titles);
 
-$wiki->setRenderConf('xhtml', 'list', 'css_ul', "nav");
+$wiki->setRenderConf('xhtml', 'list', 'css_ul', "navlist");
 
 $navbar_data = $wiki->transform($row['cont_content'], 'Xhtml');
 
 $smarty->assign("nav_ul", $navbar_data);
 $wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
 /* End navbar code */
+
+$menus = "";
+foreach ($settings['menus'] as $menu) {
+	$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($menu, 'text');
+	$db->setLimit(1);
+	$result = $db->query($query);
+	$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+	$result->free();
+	$row = $rows[0];
+	
+	$menu_content = $wiki->transform($row['cont_content'], 'Xhtml');
+	
+	$smarty->assign("menu_content", $menu_content);
+	$smarty->assign("menu_title", $row['cont_title']);
+	
+	$menus .= $smarty->fetch("{$settings['theme']}/menu_item.html");;
+	
+}
+$smarty->assign("menu_area", $menus);
 
 ob_end_clean();
 
