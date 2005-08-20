@@ -60,14 +60,17 @@ if (count($result) < 1) {
 	$revision = ($row['cont_revision'] == "" ? "1.0" : $row['cont_revision']);
 	$item_data = $wiki->transform($row['cont_content'], 'Xhtml');
 	$item_title = ($row['cont_title'] ? $row['cont_title'] : "No Title!");
-
-	$footer = "
+	
+	$footer = "";
+	if($perms['wiki']['edit_pages'] == true) {
+		$footer .= "
 	<div style='text-align: right;'>
 	  <a href='".path::http()."edit.php?page={$item}'><img src='".path::http("images")."icons/edit-trans.png' alt='Edit' title='Edit Page: {$item}' /></a>
 	  <a href='".path::http()."delete.php?page={$item}'><img src='".path::http("images")."icons/error-trans.png' alt='Delete' title='Delete Page: {$item}' /></a>
 	  <a href='".path::http()."history.php?page={$item}'><img src='".path::http("images")."icons/history-trans.png' alt='History' title='Last Edited: ".date("j F Y, g:ia", $row['cont_timestamp']).",\nRevision {$revision},\nClick to view history' /></a>
 	</div>
 ";
+	}
 }
 
 $smarty->assign("breadcrumb", $bread_crumb);
