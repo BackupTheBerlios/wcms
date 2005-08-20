@@ -27,7 +27,7 @@ class path {
 	 * @param string $name
 	 * @return string path
 	 */
-	function path($name = "") {
+	function http($name = "") {
 		if($name != "") {
 			$path = "{$GLOBALS['_wikicms']['paths']['path_base']}{$GLOBALS['_wikicms']['paths']['paths'][$name]}/";
 		} else {
@@ -37,7 +37,7 @@ class path {
 	}
 
 	/**
-	 * Set the paths for use with path::file() and path::path()
+	 * Set the paths for use with path::file() and path::http()
 	 *
 	 * @param string $file_base
 	 * @param string $path_base

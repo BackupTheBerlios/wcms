@@ -50,11 +50,11 @@ $smarty->compile_dir = path::file("data")."template_cache/";
 
 // $smarty->assign("", );
 $smarty->assign("theme", path::file("templates").$settings['theme']."/");
-$smarty->assign("theme_abs", path::path("templates").$settings['theme']."/");
+$smarty->assign("theme_abs", path::http("templates").$settings['theme']."/");
 $smarty->assign("site_name", $settings['site']['long_name']);
 $smarty->assign("site_url", SITEURL);
-$smarty->assign("site_root", path::path());
-$smarty->assign("templates_abs", path::path("templates"));
+$smarty->assign("site_root", path::http());
+$smarty->assign("templates_abs", path::http("templates"));
 $smarty->assign("page_title", $settings['site']['long_name']);
 
 $dsn = $settings['dsn'];
@@ -121,7 +121,7 @@ $wiki->setRenderConf('xhtml', 'wikilink', 'new_url', "?page=");
 $wiki->setParseConf('wikilink', 'ext_chars', true);
 
 // setup images basedir
-$wiki->setRenderConf('xhtml', 'image', 'base', path::path("images"));
+$wiki->setRenderConf('xhtml', 'image', 'base', path::http("images"));
 
 // enable use of <html> - not so clever for public editable sites!
 $wiki->enableRule('html');

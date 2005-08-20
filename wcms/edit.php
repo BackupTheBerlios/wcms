@@ -88,7 +88,7 @@ if($perms['wiki']['edit_pages'] != true) {
 		}
 	}
 
-	$path = path::path();
+	$path = path::http();
 	$smarty->assign("breadcrumb", "/ <a href='{$path}'>Home</a> / Editing: {$tag} /");
 
 	$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($item, 'text');
@@ -102,7 +102,7 @@ if($perms['wiki']['edit_pages'] != true) {
 	// require form page and create $form object
 	require_once(path::file("classes")."form_handling_class.php");
 	$form_options = array(
-	'action'      => path::path()."edit.php".($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : ""),
+	'action'      => path::http()."edit.php".($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : ""),
 	'method'      => "post",
 	'title'       => "Editing: ".($row['content_title'] != "" ? $row['contenttitle'] : $item),
 	'description' => "",

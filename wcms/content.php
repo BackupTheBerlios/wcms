@@ -30,7 +30,7 @@ if (count($result) < 1) {
 	$wiki->setParseConf('wikilink', 'ext_chars', true);
 
 	// setup images basedir
-	$wiki->setRenderConf('xhtml', 'image', 'base', path::path("images"));
+	$wiki->setRenderConf('xhtml', 'image', 'base', path::http("images"));
 
 	require_once(path::file("data")."pages.php");
 	$bread_crumb = bread_crumb();
@@ -63,9 +63,9 @@ if (count($result) < 1) {
 
 	$footer = "
 	<div style='text-align: right;'>
-	  <a href='".path::path()."edit.php?page={$item}'><img src='".path::path("images")."icons/edit-trans.png' alt='Edit' title='Edit Page: {$item}' /></a>
-	  <a href='".path::path()."delete.php?page={$item}'><img src='".path::path("images")."icons/error-trans.png' alt='Delete' title='Delete Page: {$item}' /></a>
-	  <a href='".path::path()."history.php?page={$item}'><img src='".path::path("images")."icons/history-trans.png' alt='History' title='Last Edited: ".date("j F Y, g:ia", $row['cont_timestamp']).",\nRevision {$revision},\nClick to view history' /></a>
+	  <a href='".path::http()."edit.php?page={$item}'><img src='".path::http("images")."icons/edit-trans.png' alt='Edit' title='Edit Page: {$item}' /></a>
+	  <a href='".path::http()."delete.php?page={$item}'><img src='".path::http("images")."icons/error-trans.png' alt='Delete' title='Delete Page: {$item}' /></a>
+	  <a href='".path::http()."history.php?page={$item}'><img src='".path::http("images")."icons/history-trans.png' alt='History' title='Last Edited: ".date("j F Y, g:ia", $row['cont_timestamp']).",\nRevision {$revision},\nClick to view history' /></a>
 	</div>
 ";
 }
