@@ -16,6 +16,8 @@ if($register_globals == true){
 	unset($global);
 }
 
+error_reporting(E_ERROR | E_PARSE);
+
 // Set Up PEAR Path
 ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARATOR.".");
 
