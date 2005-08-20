@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
 
@@ -154,5 +156,7 @@ $navbar_data = $wiki->transform($row['cont_content'], 'Xhtml');
 $smarty->assign("nav_ul", $navbar_data);
 $wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
 /* End navbar code */
+
+ob_end_clean();
 
 ?>

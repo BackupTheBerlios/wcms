@@ -127,13 +127,13 @@ function output_page() {
 	global $smarty, $settings;
 	$smarty->load_filter('output','rewrite_urls');
 
-	$output = $smarty->fetch("{$settings['theme']}/main.html");
+	$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
 
 	$etag = md5($output);
 	$length = strlen($output);
 	header("ETag: {$etag}");
 	header("Content-Length: {$length}");
-
+	
 	echo $output;
 
 	//echo "Memory Usage: ".get_memory_usage();
