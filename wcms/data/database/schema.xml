@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href="MDB.xsl"?>
+<database>
+
+ <name><variable>db_name</variable></name>
+ <create>1</create>
+
+ <table>
+
+  <name><variable>table_prefix</variable>content</name>
+
+  <declaration>
+
+   <field>
+    <name>cont_id</name>
+    <type>integer</type>
+   </field>
+
+   <field>
+    <name>cont_ident</name>
+    <type>text</type>
+    <length>80</length>
+   </field>
+
+   <field>
+    <name>cont_timestamp</name>
+    <type>integer</type>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>cont_content</name>
+    <type>clob</type>
+    <length></length>
+   </field>
+
+   <field>
+    <name>cont_title</name>
+    <type>text</type>
+    <length>90</length>
+   </field>
+
+   <field>
+    <name>cont_revision</name>
+    <type>text</type>
+    <length>8</length>
+   </field>
+
+   <field>
+    <name>cont_parent_id</name>
+    <type>integer</type>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>cont_settings</name>
+    <type>clob</type>
+    <length></length>
+   </field>
+
+   <index>
+    <name>cont_id</name>
+    <unique>1</unique>
+    <field>
+     <name>cont_id</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <sequence>
+  <name>content</name>
+  <on>
+   <table>content</table>
+   <field>cont_id</field>
+  </on>
+ </sequence>
+
+ <table>
+
+  <name><variable>table_prefix</variable>sessions</name>
+
+  <declaration>
+
+   <field>
+    <name>session_id</name>
+    <type>text</type>
+    <length>100</length>
+   </field>
+
+   <field>
+    <name>user_id</name>
+    <type>integer</type>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>session_data</name>
+    <type>clob</type>
+    <length></length>
+   </field>
+
+   <field>
+    <name>session_modified</name>
+    <type>integer</type>
+    <default>0</default>
+   </field>
+
+   <index>
+    <name>session_id</name>
+    <unique>1</unique>
+    <field>
+     <name>session_id</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name><variable>table_prefix</variable>users</name>
+
+  <declaration>
+
+   <field>
+    <name>user_id</name>
+    <type>integer</type>
+   </field>
+
+   <field>
+    <name>name</name>
+    <type>text</type>
+    <length>60</length>
+   </field>
+
+   <field>
+    <name>user_password</name>
+    <type>text</type>
+    <length>40</length>
+   </field>
+
+   <field>
+    <name>session_id</name>
+    <type>text</type>
+    <length>100</length>
+   </field>
+
+   <field>
+    <name>permissions</name>
+    <type>clob</type>
+    <length></length>
+   </field>
+
+   <index>
+    <name>user_id</name>
+    <unique>1</unique>
+    <field>
+     <name>user_id</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <sequence>
+  <name>users</name>
+  <on>
+   <table>users</table>
+   <field>user_id</field>
+  </on>
+ </sequence>
+
+</database>

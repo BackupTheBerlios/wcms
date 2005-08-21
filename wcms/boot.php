@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.13 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.14 $
+ * Last Edit:   $Date: 2005/08/21 19:00:41 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 
-/* $Id: boot.php,v 1.13 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: boot.php,v 1.14 2005/08/21 19:00:41 streaky Exp $ */
 
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
@@ -102,18 +102,21 @@ if (PEAR::isError($db)) {
 }
 
 $manager =& MDB2_Schema::factory($db);
-//$input_file = path::file("data")."database/db_schema.xml";
+$input_file = path::file("data")."database/schema";
 // lets create the database using 'data/db_schema.xml'
 // if you have already run this you should have 'data/db_schema.xml.current' - this should not be deleted -
 // in that case MDB2 will just compare the two schemas and make any necessary modifications to the existing DB structure
-//$manager->updateDatabase($input_file, "{$input_file}.current");
+
+$db_name = $manager->db->database_name;
+
+$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => /*$settings['db_prefix']*/''));
 
 require_once(path::file("classes")."users_class.php");
 
 // Initiate session handler class
 require_once(path::file("classes")."session_class.php");
 $session_options = array(
-'db_object' => &$db,
+	'db_object' => &$db,
 );
 $sessions =& new session_handler($session_options);
 
