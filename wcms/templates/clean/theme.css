@@ -140,3 +140,21 @@ text-transform : uppercase;
 	margin-top: 15px;
 	color: #DC783B;
 }
+
+.geshi_code{
+	font-family: 'lucida console', 'Courier New', monospace;
+	overflow: auto;
+	display:block;
+	padding:3px;
+	background-color: #eee;
+	border: 1px solid #d3d3d6;
+}
+
+code {
+	font-family: 'lucida console', 'Courier New', monospace;
+	overflow: auto;
+	display:block;
+	padding:3px;
+	background-color: #eee;
+	border: 1px solid #d3d3d6;
+}
