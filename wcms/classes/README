@@ -1,0 +1,55 @@
+This directory incudes various PEAR classes:
+
+PEAR (Core):
+
+  -- PHP Licence (http://www.php.net/license/2_02.txt)
+
+Archive_Tar:
+
+  -- PHP Licence (http://www.php.net/license/2_02.txt)
+
+Console_Getopt:
+
+  -- PHP Licence (http://www.php.net/license/2_02.txt)
+
+XML_RPC:
+
+  -- PHP Licence (http://www.php.net/license/2_02.txt)
+
+Text_Wiki:
+
+  -- LGPL (http://www.gnu.org/licenses/lgpl.html)
+
+Text_Diff:
+
+  -- LGPL (http://www.gnu.org/licenses/lgpl.html)
+
+MDB2:
+
+-- BSD License (http://www.opensource.org/licenses/bsd-license.php)
+
+MDB2_Schema:
+
+-- BSD License (http://www.opensource.org/licenses/bsd-license.php)
+
+
+XML_Parser:
+
+  -- PHP Licence (http://www.php.net/license/2_02.txt)
+
+Some of the above classes are modified, as per cvs changelog for
+these files - the original source code for these classes can be
+downloaded from the PEAR project site, at http://pear.php.net/.
+--------------------------------------------------------------------
+
+Smarty:
+
+wCMS also makes use of, and is distributed with, Smarty. Smarty is
+released under the LGPL. Some parts of the code are changed, and
+some files removed, to reduce overheads, the original source code
+can be downloaded from http://smarty.php.net
+--------------------------------------------------------------------
+
+All these files have their original copyright statements intact. All
+Smarty related files are located in the smarty directory, and all PEAR
+classes are located in the pear directory.
