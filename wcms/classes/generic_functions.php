@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.10 $
- * Last Edit:   $Date: 2005/08/22 19:35:15 $
+ * Revision:    $Revision: 1.11 $
+ * Last Edit:   $Date: 2005/08/22 19:44:28 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
-/* $Id: generic_functions.php,v 1.10 2005/08/22 19:35:15 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.11 2005/08/22 19:44:28 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -161,8 +161,8 @@ function output_page() {
 
 	$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
 
-	$etag = md5($output);
-	$length = strlen($output);
+	//$etag = md5($output);
+	//$length = strlen($output);
 	header("ETag: {$etag}");
 	//header("Content-Length: {$length}");
 	
