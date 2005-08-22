@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.9 $
- * Last Edit:   $Date: 2005/08/22 19:33:56 $
+ * Revision:    $Revision: 1.10 $
+ * Last Edit:   $Date: 2005/08/22 19:35:15 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
-/* $Id: generic_functions.php,v 1.9 2005/08/22 19:33:56 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.10 2005/08/22 19:35:15 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -130,7 +130,7 @@ function rewrite($content){
  */
 function check_dirs() {
 	if(is_dir(path::file("data")) && is_writable(path::file("data"))) {
-		$dirs = "cache|template_cache|database|logs";
+		$dirs = "cache|template_cache|database|logs|history";
 		$dirs = explode("|", $dirs);
 		foreach ($dirs as $dir){
 			if(!is_dir(path::file("data").$dir)) {
