@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.11 $
- * Last Edit:   $Date: 2005/08/22 19:44:28 $
+ * Revision:    $Revision: 1.12 $
+ * Last Edit:   $Date: 2005/08/22 19:47:21 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 
-/* $Id: generic_functions.php,v 1.11 2005/08/22 19:44:28 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.12 2005/08/22 19:47:21 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -55,7 +55,7 @@ function fix_windows_paths($path) {
 }
 
 function bread_crumb() {
-	global $crumbs;
+/*	global $crumbs;
 	$ret = "";
 	foreach ($crumbs as $page => $crumb){
 		if("?{$_SERVER['QUERY_STRING']}" == $page) {
@@ -71,7 +71,7 @@ function bread_crumb() {
 	}
 	if($ret == "") {
 		$ret .= "/ Home /";
-	}
+	}*/
 	return $ret;
 }
 
