@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.14 $
- * Last Edit:   $Date: 2005/08/21 19:00:41 $
+ * Revision:    $Revision: 1.15 $
+ * Last Edit:   $Date: 2005/08/22 19:44:37 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
-/* $Id: boot.php,v 1.14 2005/08/21 19:00:41 streaky Exp $ */
+/* $Id: boot.php,v 1.15 2005/08/22 19:44:37 streaky Exp $ */
 
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
@@ -41,7 +41,7 @@ if(function_exists('ini_get')) {
 }
 if($register_globals == true){
 	while (list($global) = each($GLOBALS)) {
-		if (!preg_match('/^(_POST|_GET|_COOKIE|_SERVER|_FILES|GLOBALS|HTTP.*|_REQUEST|whitelist)$/', $global)) {
+		if (!preg_match('/^(_POST|_GET|_COOKIE|_SERVER|_FILES|GLOBALS|HTTP.*|_REQUEST)$/', $global)) {
 			unset($$global);
 		}
 	}
