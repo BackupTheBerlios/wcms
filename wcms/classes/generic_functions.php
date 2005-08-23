@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.13 $
- * Last Edit:   $Date: 2005/08/23 09:36:27 $
+ * Revision:    $Revision: 1.14 $
+ * Last Edit:   $Date: 2005/08/23 09:47:51 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 
-/* $Id: generic_functions.php,v 1.13 2005/08/23 09:36:27 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.14 2005/08/23 09:47:51 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -159,7 +159,7 @@ function output_page($type = false) {
 	global $smarty, $settings;
 	$smarty->load_filter('output','rewrite_urls');
 
-	if($type && file_exists("{$settings['theme']}/main_{$type}.html") && is_readable("{$settings['theme']}/main_{$type}.html")) {
+	if($type == true && file_exists(path::file("templates")."{$settings['theme']}/main_{$type}.html")) {
 		$output = trim($smarty->fetch("{$settings['theme']}/main_{$type}.html"));
 	} else {
 		$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
