@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.12 $
- * Last Edit:   $Date: 2005/08/22 19:47:21 $
+ * Revision:    $Revision: 1.13 $
+ * Last Edit:   $Date: 2005/08/23 09:36:27 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 
-/* $Id: generic_functions.php,v 1.12 2005/08/22 19:47:21 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.13 2005/08/23 09:36:27 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -155,11 +155,15 @@ function check_dirs() {
  * Load required filters and output final page from main template
  *
  */
-function output_page() {
+function output_page($type = false) {
 	global $smarty, $settings;
 	$smarty->load_filter('output','rewrite_urls');
 
-	$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
+	if($type && file_exists("{$settings['theme']}/main_{$type}.html") && is_readable("{$settings['theme']}/main_{$type}.html")) {
+		$output = trim($smarty->fetch("{$settings['theme']}/main_{$type}.html"));
+	} else {
+		$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
+	}
 
 	//$etag = md5($output);
 	//$length = strlen($output);
