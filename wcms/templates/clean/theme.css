@@ -154,6 +154,7 @@ code {
 	font-family: 'lucida console', 'Courier New', monospace;
 	overflow: auto;
 	display:block;
+	white-space: pre;
 	padding:3px;
 	background-color: #eee;
 	border: 1px solid #d3d3d6;
