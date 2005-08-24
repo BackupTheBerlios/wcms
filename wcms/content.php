@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/content.php,v $
- * Revision:    $Revision: 1.5 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.6 $
+ * Last Edit:   $Date: 2005/08/24 19:19:13 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
-/* $Id: content.php,v 1.5 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: content.php,v 1.6 2005/08/24 19:19:13 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -57,8 +57,8 @@ if (count($result) < 1) {
 
 	// when rendering XHTML, make sure wiki links point to a
 	// specific base URL
-	$wiki->setRenderConf('xhtml', 'wikilink', 'view_url', "?page=");
-	$wiki->setRenderConf('xhtml', 'wikilink', 'new_url', "?page=");
+	$wiki->setRenderConf('xhtml', 'wikilink', 'view_url', path::http()."?page=%s");
+	$wiki->setRenderConf('xhtml', 'wikilink', 'new_url', path::http()."?page=%s");
 	$wiki->setParseConf('wikilink', 'ext_chars', true);
 
 	// setup images basedir

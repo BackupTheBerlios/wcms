@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.15 $
- * Last Edit:   $Date: 2005/08/22 19:44:37 $
+ * Revision:    $Revision: 1.16 $
+ * Last Edit:   $Date: 2005/08/24 19:19:13 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 
-/* $Id: boot.php,v 1.15 2005/08/22 19:44:37 streaky Exp $ */
+/* $Id: boot.php,v 1.16 2005/08/24 19:19:13 streaky Exp $ */
 
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
@@ -153,8 +153,8 @@ $wiki =& new Text_Wiki();
 
 // when rendering XHTML, make sure wiki links point to a
 // specific base URL
-$wiki->setRenderConf('xhtml', 'wikilink', 'view_url', "?page=");
-$wiki->setRenderConf('xhtml', 'wikilink', 'new_url', "?page=");
+$wiki->setRenderConf('xhtml', 'wikilink', 'view_url', path::http()."?page=%s");
+$wiki->setRenderConf('xhtml', 'wikilink', 'new_url', path::http()."?page=%s");
 $wiki->setParseConf('wikilink', 'ext_chars', true);
 
 // setup images basedir
