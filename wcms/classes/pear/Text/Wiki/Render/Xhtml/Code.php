@@ -65,7 +65,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
 			//convert tabs to four spaces,
 			//convert entities.
 			$text = str_replace("\t", "    ", $text);
-			$text = "<pre>".htmlentities($text)."</pre>";
+			$text = htmlentities($text);
 			$text = "<code{$css_code}>{$text}</code>";
 		}
 
