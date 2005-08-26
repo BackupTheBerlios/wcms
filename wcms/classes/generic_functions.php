@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.14 $
- * Last Edit:   $Date: 2005/08/23 09:47:51 $
+ * Revision:    $Revision: 1.15 $
+ * Last Edit:   $Date: 2005/08/26 10:51:23 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
-/* $Id: generic_functions.php,v 1.14 2005/08/23 09:47:51 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.15 2005/08/26 10:51:23 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -158,6 +158,7 @@ function check_dirs() {
 function output_page($type = false) {
 	global $smarty, $settings;
 	$smarty->load_filter('output','rewrite_urls');
+	$smarty->load_filter('output','session_urls');
 
 	if($type == true && file_exists(path::file("templates")."{$settings['theme']}/main_{$type}.html")) {
 		$output = trim($smarty->fetch("{$settings['theme']}/main_{$type}.html"));
