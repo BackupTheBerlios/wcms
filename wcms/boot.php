@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.18 $
- * Last Edit:   $Date: 2005/08/26 10:31:52 $
+ * Revision:    $Revision: 1.19 $
+ * Last Edit:   $Date: 2005/08/26 10:43:31 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 
-/* $Id: boot.php,v 1.18 2005/08/26 10:31:52 streaky Exp $ */
+/* $Id: boot.php,v 1.19 2005/08/26 10:43:31 streaky Exp $ */
 
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
@@ -84,6 +84,8 @@ $smarty->debugging = false;
 
 $smarty->template_dir = path::file("templates");
 $smarty->compile_dir = path::file("data")."template_cache/";
+
+$smarty->load_filter('output','session_urls');
 
 // $smarty->assign("", );
 $smarty->assign("theme", path::file("templates").$settings['theme']."/");
