@@ -93,7 +93,7 @@ a:hover{
 #logo a{
 	border:none;
 }
-#nav a:link, #nav a:visited {
+#navlist a:link, #navlist a:visited {
 	float: left;
 	color: #333;
 	letter-spacing: 1px;
@@ -103,7 +103,7 @@ a:hover{
 }
 
 
-#nav a:hover{
+#navlist a:hover{
 	color: #68688a;
 }
 h3.entrytitle a:link, h3.entrytitle a:visited, h3.entrytitle a:hover {
@@ -120,12 +120,12 @@ h3.entrytitle a:link, h3.entrytitle a:visited, h3.entrytitle a:hover {
 	color: #eee;
 	height: 23px;
 }
-#nav {
+#navlist {
 	position: relative;
 	margin: 0;
 	padding:0;
 }
-#nav li {
+#navlist li {
 	margin: 0; 
 	padding: 0;
 	display: inline;
