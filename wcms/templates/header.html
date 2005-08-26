@@ -1,5 +1,16 @@
-{html_doctype sendheaders=false version=1.1}
-<html>
+<?xml version="1.0"?>
+<?xml-stylesheet href="{$theme_abs}theme.css" type="text/css"?>
+{php}
+if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml")){
+	header("Content-Type: application/xhtml+xml; charset=UTF-8");
+	echo('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">');
+} else {
+	header("Content-Type: text/html; charset=UTF-8");
+	echo ('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">');
+}
+{/php}
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <title>{$page_title}</title>
 <link rel='alternate' type='application/rss+xml' title='wCMS Project News Feed' href='http://developer.berlios.de/export/rss20_bsnews.php?group_id=4484' />
