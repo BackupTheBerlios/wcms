@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/cache_handling_class.php,v $
- * Revision:    $Revision: 1.4 $
- * Last Edit:   $Date: 2005/08/26 17:32:17 $
+ * Revision:    $Revision: 1.5 $
+ * Last Edit:   $Date: 2005/08/26 17:33:00 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
-/* $Id: cache_handling_class.php,v 1.4 2005/08/26 17:32:17 streaky Exp $ */
+/* $Id: cache_handling_class.php,v 1.5 2005/08/26 17:33:00 streaky Exp $ */
 
 class cache_handler {
 	
@@ -50,7 +50,6 @@ class cache_handler {
 	
 	function set($tag, $data) {
 		$data = serialize($data);
-		$data = chunk_split(base64_encode($data));
 		$data = "<?php\n{$data}\n?>";
 		
 		$data_dir = $this->_options['data_dir'];
