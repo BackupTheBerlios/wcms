@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.16 $
- * Last Edit:   $Date: 2005/08/24 19:19:13 $
+ * Revision:    $Revision: 1.17 $
+ * Last Edit:   $Date: 2005/08/26 10:28:30 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 
-/* $Id: boot.php,v 1.16 2005/08/24 19:19:13 streaky Exp $ */
+/* $Id: boot.php,v 1.17 2005/08/26 10:28:30 streaky Exp $ */
 
 header("Cache-Control: must-revalidate");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
@@ -49,6 +49,9 @@ if($register_globals == true){
 }
 
 error_reporting(E_ERROR | E_PARSE);
+
+// set up some session options
+ini_set("session.use_only_cookies", "1");
 
 // Set Up PEAR Path
 ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARATOR.".");
