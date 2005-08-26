@@ -22,8 +22,9 @@
  * @param Smarty
  */
 function smarty_outputfilter_session_urls($source, &$smarty) {
-	$session_name = ini_get("session.name");
-	$source =str_replace("&{$session_name}=", "&amp;{$session_name}=", $source);
+	//$session_name = ini_get("session.name");
+	$session_name = "PHPSESSID";
+	$source = str_replace("&{$session_name}=", "&amp;{$session_name}=", $source);
 	return $source;
 }
 
