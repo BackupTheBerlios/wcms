@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/cache_handling_class.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/08/23 09:47:14 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/08/26 17:32:17 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: cache_handling_class.php,v 1.3 2005/08/23 09:47:14 streaky Exp $ */
+/* $Id: cache_handling_class.php,v 1.4 2005/08/26 17:32:17 streaky Exp $ */
 
 class cache_handler {
 	
@@ -49,41 +49,37 @@ class cache_handler {
 	}
 	
 	function set($tag, $data) {
-		$hash = md5($data);
-		$write_data = array(
-			'data' => $data,
-			'hash' => $hash,
-		);
-		$write_data = serialize($write_data);
-		$write_data = chunk_split(base64_encode($write_data));
-		$write_data = "<?php\n{$write_data}\n?>";
+		$data = serialize($data);
+		$data = chunk_split(base64_encode($data));
+		$data = "<?php\n{$data}\n?>";
 		
 		$data_dir = $this->_options['data_dir'];
 		$cache_tag = $this->_options['cache_tag'];
 		$cache_file_name = "{$data_dir}{$tag}_{$cache_tag}.cache.php";
 		
-		return $this->_write_file($cache_file_name, $write_data);
+		return $this->_write_file($cache_file_name, $data);
 	}
 	
 	function get($tag, $timeout = false) {
 		$data_dir = $this->_options['data_dir'];
 		$cache_tag = $this->_options['cache_tag'];
 		$cache_file_name = "{$data_dir}{$tag}_{$cache_tag}.cache.php";
-		if(file_exists($cache_file_name) && is_readable($cache_file_name)) {
+		if(file_exists($cache_file_name)) {
 			if ($timeout == true && (filemtime($cache_file_name) + ($timeout * 60)) < time()) {
-				unlink($cache_file_name);
+				@unlink($cache_file_name);
 				return false;
+			} else {
+				$data = $this->_read_file($cache_file_name);
+				$data = str_replace(array("<?php\n", "\n?>"), "", $data);
+				return unserialize($data);
 			}
-			
-			
-			
 		} else {
 			return false;
 		}
 	}
 	
 	function clear($pattern) {
-		
+		$this->_delete_pattern("{$pattern}*.cache.php");
 	}
 	
 	function _write_file($file_name, $content) {
@@ -110,7 +106,7 @@ class cache_handler {
 	}
 	
 	function _read_file($file_name) {
-        $fp = @fopen($this->_file, "rb");
+        $fp = @fopen($file_name, "rb");
         if ($this->_options['file_locking'] == true) {
         	@flock($fp, LOCK_SH);
         }
@@ -125,8 +121,8 @@ class cache_handler {
         return false;
 	}
 	
-	function _delete_pattern($pattern = "*.*") {
-		$dir = $this->_options[''];
+	function _delete_pattern($pattern = "*.cache.php") {
+		$dir = $this->_options['data_dir'];
 		$deleted = false;
 		$pattern = str_replace(array("\*", "\?"), array(".*", "."), preg_quote($pattern));
 		if (substr($dir, -1) != "/") {
