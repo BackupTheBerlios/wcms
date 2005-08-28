@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/page_handling_class.php,v $
- * Revision:    $Revision: 1.1 $
- * Last Edit:   $Date: 2005/08/28 00:13:29 $
+ * Revision:    $Revision: 1.2 $
+ * Last Edit:   $Date: 2005/08/28 06:35:00 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
-/* $Id: page_handling_class.php,v 1.1 2005/08/28 00:13:29 streaky Exp $ */
+/* $Id: page_handling_class.php,v 1.2 2005/08/28 06:35:00 streaky Exp $ */
 
 class page_hander {
 
@@ -58,20 +58,22 @@ class page_hander {
 	}
 
 	function output_page($page_title = "") {
-		global $smarty, $settings;
+		global $smarty, $settings, $time_start;
 		
 		$smarty->assign("page_content", $this->get_page());
 		$smarty->assign("page_title", "{$settings['site']['long_name']} - {$page_title}");
 		
-		$smarty->assign("page_footer", implode("\n", $this->footer_objects));
+		$smarty->assign("page_footer", implode("\n", $this->footer_objects)."\n#RENDERTIME#");
 		
 		$smarty->load_filter('output','rewrite_urls');
 		if($type == true && file_exists(path::file("templates")."{$settings['theme']}/main_{$type}.html")) {
 			$output = trim($smarty->fetch("{$settings['theme']}/main_{$type}.html"));
 		} else {
 			$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
-		}
-		echo $output;
+		}		
+		$time_end = microtime_float();
+		$time = $time_end - $time_start;
+		echo str_replace("#RENDERTIME#", "[Render Time: {$time}s]", $output);
 	}
 	
 	function add_footer($content) {

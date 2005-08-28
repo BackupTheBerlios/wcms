@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.23 $
- * Last Edit:   $Date: 2005/08/28 02:23:52 $
+ * Revision:    $Revision: 1.24 $
+ * Last Edit:   $Date: 2005/08/28 06:35:00 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,14 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  */
 
-/* $Id: boot.php,v 1.23 2005/08/28 02:23:52 streaky Exp $ */
+/* $Id: boot.php,v 1.24 2005/08/28 06:35:00 streaky Exp $ */
+
+require_once("classes/generic_functions.php");
+
+$time_start = microtime_float();
 
 $register_globals = true;
 if(function_exists('ini_get')) {
@@ -59,17 +63,17 @@ ini_set('session.use_trans_sid',    0);
 ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARATOR.".");
 
 $paths = array(
-	'classes'    => 'classes',
-	'data'       => 'data',
-	'templates'  => 'templates',
-	'images'     => 'images',
-	'plugins'    => 'plugins',
+'classes'    => 'classes',
+'data'       => 'data',
+'templates'  => 'templates',
+'images'     => 'images',
+'plugins'    => 'plugins',
 );
 require_once("classes/paths_class.php");
 $base_paths = path::parse_paths();
 path::set($base_paths['file'], $base_paths['http'], $paths);
 
-require_once("classes/generic_functions.php");
+
 
 check_dirs();
 
@@ -78,8 +82,8 @@ require_once(path::file("classes")."vars_class.php");
 include_once(path::file("data")."settings.php");
 
 $cache_options = array(
-	'data_dir'  => path::file("data")."cache/",
-	'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
+'data_dir'  => path::file("data")."cache/",
+'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
 );
 require_once(path::file("classes")."cache_handling_class.php");
 $cache = new cache_handler($cache_options);
@@ -116,8 +120,12 @@ if (PEAR::isError($db)) {
 
 $manager =& MDB2_Schema::factory($db);
 $input_file = path::file("data")."database/schema";
-$db_name = $manager->db->database_name;
-$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $settings['db_prefix']));
+$schema_mod = $cache->get("schema_modified", (60 * 24));
+if(!$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
+	$db_name = $manager->db->database_name;
+	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $settings['db_prefix']));
+	$cache->set("schema_modified", filemtime("{$input_file}.xml"));
+}
 
 require_once(path::file("classes")."content_class.php");
 $content = new content_handling($db);
@@ -129,7 +137,7 @@ require_once(path::file("classes")."users_class.php");
 
 // Initiate session handler class
 $session_options = array(
-	'db_object' => &$db,
+'db_object' => &$db,
 );
 require_once(path::file("classes")."session_class.php");
 $sessions =& new session_handler($session_options);
