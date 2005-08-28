@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.22 $
- * Last Edit:   $Date: 2005/08/28 02:17:35 $
+ * Revision:    $Revision: 1.23 $
+ * Last Edit:   $Date: 2005/08/28 02:23:52 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 
-/* $Id: boot.php,v 1.22 2005/08/28 02:17:35 streaky Exp $ */
+/* $Id: boot.php,v 1.23 2005/08/28 02:23:52 streaky Exp $ */
 
 $register_globals = true;
 if(function_exists('ini_get')) {
@@ -78,6 +78,7 @@ require_once(path::file("classes")."vars_class.php");
 include_once(path::file("data")."settings.php");
 
 $cache_options = array(
+	'data_dir'  => path::file("data")."cache/",
 	'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
 );
 require_once(path::file("classes")."cache_handling_class.php");
@@ -173,7 +174,7 @@ $wiki->setRenderConf('xhtml', 'wikilink', 'titles', $pages['titles']);
 
 
 $wiki->setRenderConf('xhtml', 'list', 'css_ul', "navlist");
-$nav = $content->retrieve($item);
+$nav = $content->retrieve('navbar');
 $wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
 $smarty->assign("nav_ul", $nav['content']);
 
