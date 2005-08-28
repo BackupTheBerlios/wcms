@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/page_handling_class.php,v $
- * Revision:    $Revision: 1.2 $
- * Last Edit:   $Date: 2005/08/28 06:35:00 $
+ * Revision:    $Revision: 1.3 $
+ * Last Edit:   $Date: 2005/08/28 06:37:34 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
-/* $Id: page_handling_class.php,v 1.2 2005/08/28 06:35:00 streaky Exp $ */
+/* $Id: page_handling_class.php,v 1.3 2005/08/28 06:37:34 streaky Exp $ */
 
 class page_hander {
 
@@ -72,7 +72,7 @@ class page_hander {
 			$output = trim($smarty->fetch("{$settings['theme']}/main.html"));
 		}		
 		$time_end = microtime_float();
-		$time = $time_end - $time_start;
+		$time = round($time_end - $time_start, 4);
 		echo str_replace("#RENDERTIME#", "[Render Time: {$time}s]", $output);
 	}
 	
