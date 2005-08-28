@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/edit.php,v $
- * Revision:    $Revision: 1.5 $
- * Last Edit:   $Date: 2005/08/28 05:25:55 $
+ * Revision:    $Revision: 1.6 $
+ * Last Edit:   $Date: 2005/08/28 06:04:46 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
-/* $Id: edit.php,v 1.5 2005/08/28 05:25:55 streaky Exp $ */
+/* $Id: edit.php,v 1.6 2005/08/28 06:04:46 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -38,7 +38,7 @@ $item = (!vars::get('page') ? "home_page" : vars::get('page'));
 $item = preg_replace("#\W#", "", $item);
 
 if($perms['wiki']['edit_pages'] != true) {
-	$page = rewrite("?page={$item}");
+	$page = rewrite(path::http()."?page={$item}");
 	header("Location: {$page}");
 } else {
 
@@ -104,7 +104,7 @@ if($perms['wiki']['edit_pages'] != true) {
 		$tag = vars::post('page_tag', 'wikiedit');
 		$page = rewrite("?page={$tag}");
 		
-		$content->set($item);
+		$cache->clear("wcontent_{$item}");
 		
 		// header("Location: {$page}");
 	}
@@ -137,12 +137,12 @@ if($perms['wiki']['edit_pages'] != true) {
 	// require form page and create $form object
 	require_once(path::file("classes")."form_handling_class.php");
 	$form_options = array(
-	'action'      => path::http()."edit.php".($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : ""),
-	'method'      => "post",
-	'title'       => "Editing: ".($row['content_title'] != "" ? $row['contenttitle'] : $item),
-	'description' => "",
-	'response'    => ($diff_out ? "<h3>Changes Saved:</h3> (New revision: {$new_rev}){$diff_out}<hr />" : ""),
-	'smarty'      => &$smarty,
+		'action'      => path::http()."edit.php".($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : ""),
+		'method'      => "post",
+		'title'       => "Editing: ".($row['content_title'] != "" ? $row['contenttitle'] : $item),
+		'description' => "",
+		'response'    => ($diff_out ? "<h3>Changes Saved:</h3> (New revision: {$new_rev}){$diff_out}<hr />" : ""),
+		'smarty'      => &$smarty,
 	);
 	$form = new form_handling($form_options);
 
