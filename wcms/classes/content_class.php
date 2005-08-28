@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.2 $
- * Last Edit:   $Date: 2005/08/28 02:17:35 $
+ * Revision:    $Revision: 1.3 $
+ * Last Edit:   $Date: 2005/08/28 05:25:54 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
-/* $Id: content_class.php,v 1.2 2005/08/28 02:17:35 streaky Exp $ */
+/* $Id: content_class.php,v 1.3 2005/08/28 05:25:54 streaky Exp $ */
 
 class content_handling {
 
@@ -72,7 +72,8 @@ class content_handling {
 	}
 
 	function set($ident = "home_page") {
-
+		global $cache;
+		$cache->clear("wcontent_{$ident}");
 	}
 
 	function create($ident = "home_page") {

@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.16 $
- * Last Edit:   $Date: 2005/08/28 00:13:29 $
+ * Revision:    $Revision: 1.17 $
+ * Last Edit:   $Date: 2005/08/28 05:25:54 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 
-/* $Id: generic_functions.php,v 1.16 2005/08/28 00:13:29 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.17 2005/08/28 05:25:54 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -193,6 +193,14 @@ function handle_pear_error($error_obj) {
 	print '<pre><b>PEAR-Error</b><br />';
 	echo $error_obj->getMessage().': '.$error_obj->getUserinfo();
 	print '</pre>';
+}
+
+function utf8_entities($string = "") {
+	return htmlentities($string, ENT_QUOTES, "UTF-8");
+}
+
+function utf8_entity_decode() {
+	
 }
 
 ?>

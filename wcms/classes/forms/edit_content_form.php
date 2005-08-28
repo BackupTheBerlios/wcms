@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/forms/edit_content_form.php,v $
- * Revision:    $Revision: 1.2 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.3 $
+ * Last Edit:   $Date: 2005/08/28 05:25:54 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
-/* $Id: edit_content_form.php,v 1.2 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: edit_content_form.php,v 1.3 2005/08/28 05:25:54 streaky Exp $ */
 
 $form_item = array (
     'label'       => "Page Title",
@@ -63,7 +63,7 @@ $form_item = array (
     'id'          => "wikiedit-page_content",
     'rows'        => 32,
     'description' => "The content of the page you are creating (Wiki parsed on display)",
-    'value'       => $row['cont_content'],
+    'value'       => utf8_entities($row['cont_content']),
     'required'    => true,
 );
 $form->add_text_area($form_item);
