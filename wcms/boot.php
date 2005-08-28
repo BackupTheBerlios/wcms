@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.24 $
- * Last Edit:   $Date: 2005/08/28 06:35:00 $
+ * Revision:    $Revision: 1.25 $
+ * Last Edit:   $Date: 2005/08/28 14:38:24 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 
-/* $Id: boot.php,v 1.24 2005/08/28 06:35:00 streaky Exp $ */
+/* $Id: boot.php,v 1.25 2005/08/28 14:38:24 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -42,7 +42,7 @@ if(function_exists('ini_get')) {
 }
 if($register_globals == true){
 	while (list($global) = each($GLOBALS)) {
-		if (!preg_match('/^(_POST|_GET|_COOKIE|_SERVER|_FILES|GLOBALS|HTTP.*|_REQUEST)$/', $global)) {
+		if (!preg_match('/^(_POST|_GET|_COOKIE|_SERVER|_FILES|GLOBALS|HTTP.*|_REQUEST|time_start)$/', $global)) {
 			unset($$global);
 		}
 	}
