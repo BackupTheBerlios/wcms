@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/cache_handling_class.php,v $
- * Revision:    $Revision: 1.7 $
- * Last Edit:   $Date: 2005/08/28 02:23:52 $
+ * Revision:    $Revision: 1.8 $
+ * Last Edit:   $Date: 2005/08/28 19:39:09 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
-/* $Id: cache_handling_class.php,v 1.7 2005/08/28 02:23:52 streaky Exp $ */
+/* $Id: cache_handling_class.php,v 1.8 2005/08/28 19:39:09 streaky Exp $ */
 
 class cache_handler {
 	
@@ -59,12 +59,12 @@ class cache_handler {
 		return $this->_write_file($cache_file_name, $data);
 	}
 	
-	function get($tag, $timeout = false) {
+	function get($tag, $timeout = -1) {
 		$data_dir = $this->_options['data_dir'];
 		$cache_tag = $this->_options['cache_tag'];
 		$cache_file_name = "{$data_dir}{$tag}_{$cache_tag}.cache.php";
 		if(file_exists($cache_file_name)) {
-			if ($timeout == true && (filemtime($cache_file_name) + ($timeout * 60)) < time()) {
+			if ($timeout != -1 && (filemtime($cache_file_name) + ($timeout * 60)) < time()) {
 				@unlink($cache_file_name);
 				return false;
 			} else {

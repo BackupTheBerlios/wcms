@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.25 $
- * Last Edit:   $Date: 2005/08/28 14:38:24 $
+ * Revision:    $Revision: 1.26 $
+ * Last Edit:   $Date: 2005/08/28 19:39:09 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  */
 
-/* $Id: boot.php,v 1.25 2005/08/28 14:38:24 streaky Exp $ */
+/* $Id: boot.php,v 1.26 2005/08/28 19:39:09 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -187,10 +187,14 @@ $wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
 $smarty->assign("nav_ul", $nav['content']);
 
 foreach ($settings['menus'] as $menu) {
-	$menu_item = $content->retrieve($menu, 60);
-	$smarty->assign("menu_content", $menu_item['content']);
-	$smarty->assign("menu_title", $menu_item['title']);
-	$menus .= $smarty->fetch("{$settings['theme']}/menu_item.html");;
+	if($menu['type'] == 'content') {
+		$menu_item = $content->retrieve($menu['data'], CONTENT_NO_CACHE);
+		$smarty->assign("menu_content", $menu_item['content']);
+		$smarty->assign("menu_title", $menu_item['title']);
+		$menus .= $smarty->fetch("{$settings['theme']}/menu_item.html");
+	} else {
+		// Implement non-content menu items here
+	}
 }
 $smarty->assign("menu_area", $menus);
 

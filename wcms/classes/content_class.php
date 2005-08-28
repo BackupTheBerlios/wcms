@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.4 $
- * Last Edit:   $Date: 2005/08/28 06:04:46 $
+ * Revision:    $Revision: 1.5 $
+ * Last Edit:   $Date: 2005/08/28 19:39:09 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
-/* $Id: content_class.php,v 1.4 2005/08/28 06:04:46 streaky Exp $ */
+/* $Id: content_class.php,v 1.5 2005/08/28 19:39:09 streaky Exp $ */
 
 class content_handling {
 
@@ -39,12 +39,13 @@ class content_handling {
 	);
 
 	function content_handling(&$mdb2_object, $options = array()) {
+		define("CONTENT_NO_CACHE", -1);
 		foreach ($options as $option => $value){
 			$this->_options[$option] = $value;
 		}
 	}
 
-	function retrieve($ident = "home_page", $cache_timeout = false) {
+	function retrieve($ident = "home_page", $cache_timeout = CONTENT_NO_CACHE) {
 		global $db, $cache, $wiki;
 		$ident = preg_replace("#\W#", "", $ident);
 		$ret = $cache->get("wcontent_{$ident}", $cache_timeout);
@@ -114,6 +115,10 @@ class content_handling {
 			$buttons[] = "<a href='".path::http()."history.php?page={$ident}'><img src='".path::http("images")."icons/history-trans.png' alt='History' title='Last edited ".date("j F Y, g:ia", $last_mod).", revision {$revision}' /></a>";
 		}
 		return implode(" ", $buttons);
+	}
+	
+	function get_content_tree() {
+		
 	}
 }
 
