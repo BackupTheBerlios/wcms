@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.1 $
- * Last Edit:   $Date: 2005/08/28 00:13:29 $
+ * Revision:    $Revision: 1.2 $
+ * Last Edit:   $Date: 2005/08/28 02:17:35 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
-/* $Id: content_class.php,v 1.1 2005/08/28 00:13:29 streaky Exp $ */
+/* $Id: content_class.php,v 1.2 2005/08/28 02:17:35 streaky Exp $ */
 
 class content_handling {
 
@@ -44,10 +44,10 @@ class content_handling {
 		}
 	}
 
-	function retrieve($ident = "home_page") {
+	function retrieve($ident = "home_page", $cache_timeout = false) {
 		global $db, $cache, $wiki;
 		$ident = preg_replace("#\W#", "", $ident);
-		$ret = $cache->get("wcontent_{$ident}");
+		$ret = $cache->get("wcontent_{$ident}", $cache_timeout);
 		if(!$ret) {
 			$query = "SELECT * FROM {$this->_options['content_table']} WHERE cont_ident = ".$db->quote($ident, 'text');
 			$db->setLimit(1);
@@ -57,14 +57,14 @@ class content_handling {
 			$row = $rows[0];
 			$content = $wiki->transform($row['cont_content'], 'Xhtml');
 			$ret = array(
-			'content'  => $content,
-			'title'    => $row['cont_title'],
-			'last_mod' => $row['cont_timestamp'],
-			'ident'    => $ident,
-			'id'       => $row['cont_id'],
-			'revision' => $row['cont_revision'],
-			'parent'   => $row['parent_id'],
-			'settings' => $row['cont_settings'],
+				'content'  => $content,
+				'title'    => $row['cont_title'],
+				'last_mod' => $row['cont_timestamp'],
+				'ident'    => $ident,
+				'id'       => $row['cont_id'],
+				'revision' => $row['cont_revision'],
+				'parent'   => $row['parent_id'],
+				'settings' => $row['cont_settings'],
 			);
 			$cache->set("wcontent_{$ident}", $ret);
 		}
