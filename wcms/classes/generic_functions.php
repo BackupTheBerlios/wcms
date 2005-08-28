@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/generic_functions.php,v $
- * Revision:    $Revision: 1.15 $
- * Last Edit:   $Date: 2005/08/26 10:51:23 $
+ * Revision:    $Revision: 1.16 $
+ * Last Edit:   $Date: 2005/08/28 00:13:29 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 
-/* $Id: generic_functions.php,v 1.15 2005/08/26 10:51:23 streaky Exp $ */
+/* $Id: generic_functions.php,v 1.16 2005/08/28 00:13:29 streaky Exp $ */
 
 /**
  * Return or output print_r() but with htmlenties and pre tags
@@ -55,6 +55,7 @@ function fix_windows_paths($path) {
 }
 
 function bread_crumb() {
+	$ret = "";
 /*	global $crumbs;
 	$ret = "";
 	foreach ($crumbs as $page => $crumb){
@@ -130,7 +131,7 @@ function rewrite($content){
  */
 function check_dirs() {
 	if(is_dir(path::file("data")) && is_writable(path::file("data"))) {
-		$dirs = "cache|template_cache|database|logs|history";
+		$dirs = "cache|template_cache|database|logs|wiki_history";
 		$dirs = explode("|", $dirs);
 		foreach ($dirs as $dir){
 			if(!is_dir(path::file("data").$dir)) {
@@ -158,7 +159,6 @@ function check_dirs() {
 function output_page($type = false) {
 	global $smarty, $settings;
 	$smarty->load_filter('output','rewrite_urls');
-	$smarty->load_filter('output','session_urls');
 
 	if($type == true && file_exists(path::file("templates")."{$settings['theme']}/main_{$type}.html")) {
 		$output = trim($smarty->fetch("{$settings['theme']}/main_{$type}.html"));
@@ -168,7 +168,7 @@ function output_page($type = false) {
 
 	//$etag = md5($output);
 	//$length = strlen($output);
-	header("ETag: {$etag}");
+	//header("ETag: {$etag}");
 	//header("Content-Length: {$length}");
 	
 	echo $output;

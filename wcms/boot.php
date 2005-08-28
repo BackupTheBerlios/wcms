@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.20 $
- * Last Edit:   $Date: 2005/08/26 14:24:25 $
+ * Revision:    $Revision: 1.21 $
+ * Last Edit:   $Date: 2005/08/28 00:13:29 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,13 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 
-/* $Id: boot.php,v 1.20 2005/08/26 14:24:25 streaky Exp $ */
-
-header("Cache-Control: must-revalidate");
-header("Expires: ".gmdate("D, d M Y H:i:s", time() + (60 * 60 * 24 * 3))." GMT");
+/* $Id: boot.php,v 1.21 2005/08/28 00:13:29 streaky Exp $ */
 
 $register_globals = true;
 if(function_exists('ini_get')) {
@@ -48,7 +45,7 @@ if($register_globals == true){
 	unset($global);
 }
 
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
 
 // set up some options
 ini_set('arg_separator.output',     '&amp;');
@@ -64,11 +61,11 @@ ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARA
 require_once("classes/paths_class.php");
 $base_paths = path::parse_paths();
 $paths = array(
-	'classes'    => 'classes',
-	'data'       => 'data',
-	'templates'  => 'templates',
-	'images'     => 'images',
-	'plugins'    => 'plugins',
+'classes'    => 'classes',
+'data'       => 'data',
+'templates'  => 'templates',
+'images'     => 'images',
+'plugins'    => 'plugins',
 );
 path::set($base_paths['file'], $base_paths['http'], $paths);
 
@@ -80,6 +77,12 @@ require_once(path::file("classes")."vars_class.php");
 
 include_once(path::file("data")."settings.php");
 
+require_once(path::file("classes")."cache_handling_class.php");
+$cache_options = array(
+'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
+);
+$cache = new cache_handler($cache_options);
+
 // implement smarty object
 require_once(path::file("classes")."smarty/Smarty.class.php");
 $smarty = new Smarty;
@@ -87,16 +90,15 @@ $smarty = new Smarty;
 $smarty->compile_check = true;
 $smarty->debugging = false;
 
+
+
 $smarty->template_dir = path::file("templates");
 $smarty->compile_dir = path::file("data")."template_cache/";
 
-$smarty->load_filter('output','session_urls');
-
-// $smarty->assign("", );
 $smarty->assign("theme", path::file("templates").$settings['theme']."/");
 $smarty->assign("theme_abs", path::http("templates").$settings['theme']."/");
 $smarty->assign("site_name", $settings['site']['long_name']);
-$smarty->assign("site_url", SITEURL);
+$smarty->assign("site_url", "http://{$_SERVER['HTTP_HOST']}/".path::http());
 $smarty->assign("site_root", path::http());
 $smarty->assign("templates_abs", path::http("templates"));
 $smarty->assign("page_title", $settings['site']['long_name']);
@@ -121,12 +123,18 @@ $db_name = $manager->db->database_name;
 
 $manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => /*$settings['db_prefix']*/''));
 
+require_once(path::file("classes")."content_class.php");
+$content = new content_handling($db);
+
+require_once(path::file("classes")."page_handling_class.php");
+$page_handler = new page_hander();
+
 require_once(path::file("classes")."users_class.php");
 
 // Initiate session handler class
 require_once(path::file("classes")."session_class.php");
 $session_options = array(
-	'db_object' => &$db,
+'db_object' => &$db,
 );
 $sessions =& new session_handler($session_options);
 
@@ -147,22 +155,11 @@ if(is_readable(path::file("plugins")."bbclone/")) {
 	}
 }
 
-/* Get Navbar and parse the content */
-$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote("navbar", 'text');
-$db->setLimit(1);
-$result = $db->query($query);
-$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
-$result->free();
-$row = $rows[0];
-
-// load the class file
 require_once('Text/Wiki.php'); // Using include path (PEAR Class)
-
 // instantiate a Text_Wiki object with the default rule set
 $wiki =& new Text_Wiki();
 
-// when rendering XHTML, make sure wiki links point to a
-// specific base URL
+// when rendering XHTML, make sure wiki links point to the base URL
 $wiki->setRenderConf('xhtml', 'wikilink', 'view_url', path::http()."?page=%s");
 $wiki->setRenderConf('xhtml', 'wikilink', 'new_url', path::http()."?page=%s");
 $wiki->setParseConf('wikilink', 'ext_chars', true);
@@ -170,52 +167,65 @@ $wiki->setParseConf('wikilink', 'ext_chars', true);
 // setup images basedir
 $wiki->setRenderConf('xhtml', 'image', 'base', path::http("images"));
 
-// enable use of <html> - not so clever for public editable sites!
 $wiki->enableRule('html');
 
-// set an array of pages that exist in the wiki
-// and tell the XHTML renderer about them
-$query = ("SELECT cont_id, cont_ident, cont_title FROM content");
-$result = $db->query($query);
-$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
-$result->free();
-foreach($rows as $tag_item) {
-	$tag = $tag_item['cont_ident'];
-	$pages[] = $tag;
-	$titles[$tag]['title'] = $tag_item['cont_title'];
-}
+$sites = array();
 
-$sites = array(
-'wikipedia' => "http://en.wikipedia.org/wiki/%s",
-);
+
+$pages = $content->get_pages_list();
+
 $wiki->setRenderConf('xhtml', 'interwiki', 'sites', $sites);
-$wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages);
-$wiki->setRenderConf('xhtml', 'wikilink', 'titles', $titles);
+$wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages['pages']);
+$wiki->setRenderConf('xhtml', 'wikilink', 'titles', $pages['titles']);
 
-$wiki->setRenderConf('xhtml', 'list', 'css_ul', "navlist");
-
-$navbar_data = $wiki->transform($row['cont_content'], 'Xhtml');
-
-$smarty->assign("nav_ul", $navbar_data);
-$wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
-/* End navbar code */
-
-$menus = "";
-foreach ($settings['menus'] as $menu) {
-	$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($menu, 'text');
+$nav = $cache->get("wcontent_navbar");
+if(!$nav) {
+	/* Get Navbar and parse the content */
+	$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote("navbar", 'text');
 	$db->setLimit(1);
 	$result = $db->query($query);
 	$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 	$result->free();
 	$row = $rows[0];
-	
-	$menu_content = $wiki->transform($row['cont_content'], 'Xhtml');
-	
-	$smarty->assign("menu_content", $menu_content);
-	$smarty->assign("menu_title", $row['cont_title']);
-	
-	$menus .= $smarty->fetch("{$settings['theme']}/menu_item.html");;
-	
+
+	// set an array of pages that exist in the wiki
+	// and tell the XHTML renderer about them
+	$query = ("SELECT cont_id, cont_ident, cont_title FROM content");
+	$result = $db->query($query);
+	$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+	$result->free();
+	foreach($rows as $tag_item) {
+		$tag = $tag_item['cont_ident'];
+		$pages[] = $tag;
+		$titles[$tag]['title'] = $tag_item['cont_title'];
+	}
+
+	$wiki->setRenderConf('xhtml', 'list', 'css_ul', "navlist");
+	$nav = $wiki->transform($row['cont_content'], 'Xhtml');
+	$wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
+	$cache->set("wcontent_navbar", $nav);
+}
+$smarty->assign("nav_ul", $nav);
+
+$menus = $cache->get("menus");
+if(!$menus) {
+	foreach ($settings['menus'] as $menu) {
+		$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($menu, 'text');
+		$db->setLimit(1);
+		$result = $db->query($query);
+		$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+		$result->free();
+		$row = $rows[0];
+
+		$menu_content = $wiki->transform($row['cont_content'], 'Xhtml');
+
+		$smarty->assign("menu_content", $menu_content);
+		$smarty->assign("menu_title", $row['cont_title']);
+
+		$menus .= $smarty->fetch("{$settings['theme']}/menu_item.html");;
+
+	}
+	$cache->set("menus", $menus);
 }
 $smarty->assign("menu_area", $menus);
 

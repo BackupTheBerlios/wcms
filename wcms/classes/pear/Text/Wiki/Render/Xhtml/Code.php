@@ -52,14 +52,10 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
 			
 			$style = $geshi->get_stylesheet();
 			
-			$text = '<style type="text/css">
-<!--
-'.$style.'
--->
-</style>
-'.$text;
+			global $page_handler;
+			$style = "<style type='text/css'>\n{$style}\n</style>";
+			$page_handler->add_header_data($style);
 			
-
 		} else {
 			//generic code example:
 			//convert tabs to four spaces,
