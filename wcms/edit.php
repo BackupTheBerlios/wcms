@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/edit.php,v $
- * Revision:    $Revision: 1.7 $
- * Last Edit:   $Date: 2005/08/30 14:40:03 $
+ * Revision:    $Revision: 1.8 $
+ * Last Edit:   $Date: 2005/08/30 14:43:17 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
-/* $Id: edit.php,v 1.7 2005/08/30 14:40:03 streaky Exp $ */
+/* $Id: edit.php,v 1.8 2005/08/30 14:43:17 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -104,9 +104,7 @@ if($perms['wiki']['edit_pages'] != true) {
 		$tag = vars::post('page_tag', 'wikiedit');
 		$page = rewrite("?page={$tag}");
 
-		$cache->clear("wcontent");
-		
-		$cache->clear("wcontent_{$item}");
+		$cache->clear("wcontent_");
 		
 		// header("Location: {$page}");
 	}
