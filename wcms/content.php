@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/content.php,v $
- * Revision:    $Revision: 1.7 $
- * Last Edit:   $Date: 2005/08/28 00:13:29 $
+ * Revision:    $Revision: 1.8 $
+ * Last Edit:   $Date: 2005/08/30 14:11:21 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
-/* $Id: content.php,v 1.7 2005/08/28 00:13:29 streaky Exp $ */
+/* $Id: content.php,v 1.8 2005/08/30 14:11:21 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -38,7 +38,15 @@ $item = (!vars::get('page') ? "home_page" : vars::get('page'));
 $item = preg_replace("#\W#", "", $item);
 
 $page_content = $content->retrieve($item);
-$page_handler->add_page_item($page_content['content'], $page_content['title']);
+
+foreach ($page_content['family_tree'] as $key => $val) {
+	$breadcrumb[] = "<a href='".path::http()."?page={$val['ident']}'>{$val['title']}</a>";
+}
+$breadcrumb = array_reverse($breadcrumb);
+$breadcrumb = implode(" &gt; ", $breadcrumb);
+$smarty->assign("breadcrumb", $breadcrumb);
+
+$page_handler->add_page_item($page_content['content'].$bread_crumb, $page_content['title']);
 $footer = $content->create_content_footer($page_content['ident'], $page_content['last_mod'], $page_content['revision'], $page_content['title']);
 $page_handler->add_footer($footer);
 

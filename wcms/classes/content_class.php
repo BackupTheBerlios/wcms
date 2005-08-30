@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.7 $
- * Last Edit:   $Date: 2005/08/30 12:20:03 $
+ * Revision:    $Revision: 1.8 $
+ * Last Edit:   $Date: 2005/08/30 14:11:21 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
-/* $Id: content_class.php,v 1.7 2005/08/30 12:20:03 streaky Exp $ */
+/* $Id: content_class.php,v 1.8 2005/08/30 14:11:21 streaky Exp $ */
 
 class content_handling {
 
@@ -58,7 +58,7 @@ class content_handling {
 			$row = $rows[0];
 			$content = $wiki->transform($row['cont_content'], 'Xhtml');
 			
-			$family_tree = $this->get_content_tree($row['parent_id'], $ident, $row['cont_id'], $row['cont_title']);
+			$family_tree = $this->get_content_tree($row['cont_parent_id'], $ident, $row['cont_id'], $row['cont_title']);
 			
 			$ret = array(
 				'content'     => $content,
@@ -67,7 +67,7 @@ class content_handling {
 				'ident'       => $ident,
 				'id'          => $row['cont_id'],
 				'revision'    => $row['cont_revision'],
-				'parent'      => $row['parent_id'],
+				'parent'      => $row['cont_parent_id'],
 				'settings'    => $row['cont_settings'],
 				'family_tree' => $family_tree,
 			);
@@ -131,9 +131,9 @@ class content_handling {
 				'title'  => $title,
 				'parent' => $parent_id
 			);
-			$no_parents = false;
-			while ($no_parents == false) {
-				if($parent_id == $id) {
+			$no_parents = false; $i = 0;
+			while ($no_parents == false && $i < 50) {
+				if($parent_id == $id || $parent_id == false) {
 					$no_parents == true;
 				} else {
 					// get parents data
@@ -142,6 +142,7 @@ class content_handling {
 					$parent_id = $parent['parent'];
 					$id = $parent['id'];
 				}
+				$i++;
 			}
 			$ret = $data;
 			$cache->set("wcontent_{$ident}_tree", $ret);
