@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.6 $
- * Last Edit:   $Date: 2005/08/30 12:16:40 $
+ * Revision:    $Revision: 1.7 $
+ * Last Edit:   $Date: 2005/08/30 12:20:03 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
-/* $Id: content_class.php,v 1.6 2005/08/30 12:16:40 streaky Exp $ */
+/* $Id: content_class.php,v 1.7 2005/08/30 12:20:03 streaky Exp $ */
 
 class content_handling {
 
@@ -58,17 +58,18 @@ class content_handling {
 			$row = $rows[0];
 			$content = $wiki->transform($row['cont_content'], 'Xhtml');
 			
-			$parent_data = 
+			$family_tree = $this->get_content_tree($row['parent_id'], $ident, $row['cont_id'], $row['cont_title']);
 			
 			$ret = array(
-				'content'  => $content,
-				'title'    => $row['cont_title'],
-				'last_mod' => $row['cont_timestamp'],
-				'ident'    => $ident,
-				'id'       => $row['cont_id'],
-				'revision' => $row['cont_revision'],
-				'parent'   => $row['parent_id'],
-				'settings' => $row['cont_settings'],
+				'content'     => $content,
+				'title'       => $row['cont_title'],
+				'last_mod'    => $row['cont_timestamp'],
+				'ident'       => $ident,
+				'id'          => $row['cont_id'],
+				'revision'    => $row['cont_revision'],
+				'parent'      => $row['parent_id'],
+				'settings'    => $row['cont_settings'],
+				'family_tree' => $family_tree,
 			);
 			$cache->set("wcontent_{$ident}", $ret);
 		}
