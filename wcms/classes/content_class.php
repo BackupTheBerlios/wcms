@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.5 $
- * Last Edit:   $Date: 2005/08/28 19:39:09 $
+ * Revision:    $Revision: 1.6 $
+ * Last Edit:   $Date: 2005/08/30 12:16:40 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,18 +27,18 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
-/* $Id: content_class.php,v 1.5 2005/08/28 19:39:09 streaky Exp $ */
+/* $Id: content_class.php,v 1.6 2005/08/30 12:16:40 streaky Exp $ */
 
 class content_handling {
 
 	var $_options = array(
-	'content_table' => 'content',
+		'content_table' => 'content',
 	);
 
-	function content_handling(&$mdb2_object, $options = array()) {
+	function content_handling($options = array()) {
 		define("CONTENT_NO_CACHE", -1);
 		foreach ($options as $option => $value){
 			$this->_options[$option] = $value;
@@ -57,6 +57,9 @@ class content_handling {
 			$result->free();
 			$row = $rows[0];
 			$content = $wiki->transform($row['cont_content'], 'Xhtml');
+			
+			$parent_data = 
+			
 			$ret = array(
 				'content'  => $content,
 				'title'    => $row['cont_title'],
@@ -98,8 +101,8 @@ class content_handling {
 				$titles[$tag]['title'] = $tag_item['cont_title'];
 			}
 			$ret = array(
-				'pages'  => $pages,
-				'titles' => $titles,
+			'pages'  => $pages,
+			'titles' => $titles,
 			);
 			$cache->set("content_pages", $ret);
 		}
@@ -116,9 +119,50 @@ class content_handling {
 		}
 		return implode(" ", $buttons);
 	}
-	
-	function get_content_tree() {
-		
+
+	function get_content_tree($parent_id, $ident, $id, $title) {
+		global $cache, $db;
+		$ret = $cache->get("wcontent_{$ident}_tree");
+		if(!$ret) {
+			$data[] = array(
+				'ident'  => $ident,
+				'id'     => $id,
+				'title'  => $title,
+				'parent' => $parent_id
+			);
+			$no_parents = false;
+			while ($no_parents == false) {
+				if($parent_id == $id) {
+					$no_parents == true;
+				} else {
+					// get parents data
+					$parent = $this->_get_parent($parent_id);
+					$data[] = $parent;
+					$parent_id = $parent['parent'];
+					$id = $parent['id'];
+				}
+			}
+			$ret = $data;
+			$cache->set("wcontent_{$ident}_tree", $ret);
+		}
+		return $ret;
+	}
+
+	function _get_parent($id) {
+		global $db;
+		$query = "SELECT cont_ident, cont_title, cont_id, cont_parent_id FROM content WHERE cont_id = ".$db->quote($id, 'integer');
+		$db->setLimit(1);
+		$result = $db->query($query);
+		$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+		$result->free();
+		$row = $rows[0];
+		$ret = array(
+			'ident'  => $row['cont_ident'],
+			'id'     => $row['cont_id'],
+			'title'  => $row['cont_title'],
+			'parent' => $row['cont_parent_id'],
+		);
+		return $ret;
 	}
 }
 
