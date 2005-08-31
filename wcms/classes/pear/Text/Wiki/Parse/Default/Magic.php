@@ -15,7 +15,7 @@ class Text_Wiki_Parse_Magic extends Text_Wiki_Parse {
 			")" .												   // END function name
 			"((?:" .												   // START options
 			" " .                          // Space delimiter
-			"[a-zA-Z0-9]+" .               // Text of options
+			"[\w\W]+" .               // Text of options
 			")*)" .                         // END options
 			"\\)\\)" .									   // double close-parens
 			'/';												   // END regex

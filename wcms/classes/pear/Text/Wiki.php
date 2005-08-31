@@ -12,7 +12,7 @@
 * 
 * @license LGPL
 * 
-* @version $Id: Wiki.php,v 1.1 2005/08/21 15:56:16 streaky Exp $
+* @version $Id: Wiki.php,v 1.2 2005/08/31 11:46:40 streaky Exp $
 * 
 */
 
@@ -73,6 +73,7 @@ class Text_Wiki {
         'Html',
         'Raw',
         'Include',
+        'Magic',
         'Embed',
         'Anchor',
         'Heading',
