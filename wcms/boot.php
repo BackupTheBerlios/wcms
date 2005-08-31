@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.26 $
- * Last Edit:   $Date: 2005/08/28 19:39:09 $
+ * Revision:    $Revision: 1.27 $
+ * Last Edit:   $Date: 2005/08/31 09:29:58 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.26 $
+ * @version $Revision: 1.27 $
  */
 
-/* $Id: boot.php,v 1.26 2005/08/28 19:39:09 streaky Exp $ */
+/* $Id: boot.php,v 1.27 2005/08/31 09:29:58 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -103,6 +103,7 @@ $smarty->assign("theme_abs", path::http("templates").$settings['theme']."/");
 $smarty->assign("site_name", $settings['site']['long_name']);
 $smarty->assign("site_url", "http://{$_SERVER['HTTP_HOST']}/".path::http());
 $smarty->assign("site_root", path::http());
+$smarty->assign("site_images", path::http("images"));
 $smarty->assign("templates_abs", path::http("templates"));
 $smarty->assign("page_title", $settings['site']['long_name']);
 
