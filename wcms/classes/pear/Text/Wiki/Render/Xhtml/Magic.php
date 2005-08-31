@@ -52,7 +52,7 @@ class Text_Wiki_Render_Xhtml_Magic extends Text_Wiki_Render {
 			$tn_width = ceil($y_ratio * $width);
 			$tn_height = $max_height;
 		}
-		return "<img src='".path::http("images")."{$filename}' style='height: {$tn_width}; width: {$tn_height};' />";
+		return "<img src='".path::http("images")."{$filename}' style='height: {$tn_width}px; width: {$tn_height}px;' />";
 	}
 }
 
