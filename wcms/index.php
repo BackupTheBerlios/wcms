@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/index.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/08/31 09:12:35 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,22 +27,12 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: index.php,v 1.3 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: index.php,v 1.4 2005/08/31 09:12:35 streaky Exp $ */
 
 require_once("boot.php");
-
-$query = explode("/", $_SERVER['PATH_INFO']);
-
-switch ($query[1]) {
-  case "news":
-    require_once(path::file()."news.php");
-  break;
-  default:
-    require_once(path::file()."content.php");
-  break;
-}
+require_once(path::file()."content.php");
 
 ?>
