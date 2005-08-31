@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/error.php,v $
- * Revision:    $Revision: 1.2 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.3 $
+ * Last Edit:   $Date: 2005/08/31 10:07:24 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
-/* $Id: error.php,v 1.2 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: error.php,v 1.3 2005/08/31 10:07:24 streaky Exp $ */
 
 require_once("boot.php");
 
