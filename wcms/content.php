@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/content.php,v $
- * Revision:    $Revision: 1.8 $
- * Last Edit:   $Date: 2005/08/30 14:11:21 $
+ * Revision:    $Revision: 1.9 $
+ * Last Edit:   $Date: 2005/08/31 09:12:01 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
-/* $Id: content.php,v 1.8 2005/08/30 14:11:21 streaky Exp $ */
+/* $Id: content.php,v 1.9 2005/08/31 09:12:01 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -40,7 +40,7 @@ $item = preg_replace("#\W#", "", $item);
 $page_content = $content->retrieve($item);
 
 foreach ($page_content['family_tree'] as $key => $val) {
-	$breadcrumb[] = "<a href='".path::http()."?page={$val['ident']}'>{$val['title']}</a>";
+	$breadcrumb[] = ($key != 0 ? "<a href='".path::http()."?page={$val['ident']}'>{$val['title']}</a>" : $val['title']);
 }
 $breadcrumb = array_reverse($breadcrumb);
 $breadcrumb = implode(" &gt; ", $breadcrumb);
