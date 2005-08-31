@@ -5,8 +5,6 @@ class Text_Wiki_Render_Xhtml_Magic extends Text_Wiki_Render {
 	var $conf = array();
 
 	function token($options) {
-		return print_a($options, true);
-
 		if($options[0] == "thumb") {
 			$sub_opts = explode("|", $options[1]);
 			foreach ($sub_opts as $opt) {
@@ -16,6 +14,8 @@ class Text_Wiki_Render_Xhtml_Magic extends Text_Wiki_Render {
 			foreach ($this_opts as $option){
 				$options[$option['0']] = $option[1];
 			}
+			
+			
 			if(isset($options['file']) && file_exists(path::file("images").$options['file'])) {
 				if(!isset($options['maxw'])) {
 					$options['maxw'] = 20000;
@@ -27,7 +27,7 @@ class Text_Wiki_Render_Xhtml_Magic extends Text_Wiki_Render {
 				} else {
 					$options['maxh'] = intval($options['maxh']);
 				}
-				return $this->create_thumb($options['file'], $options['maxw'], $options['maxh']);
+				return $this->create_thumb($options['file'], $options['maxw'], $options['maxh']).print_a($options, true);
 			}
 		}
 	}
