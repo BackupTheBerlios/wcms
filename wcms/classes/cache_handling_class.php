@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/cache_handling_class.php,v $
- * Revision:    $Revision: 1.9 $
- * Last Edit:   $Date: 2005/08/31 10:32:32 $
+ * Revision:    $Revision: 1.10 $
+ * Last Edit:   $Date: 2005/08/31 10:33:22 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
-/* $Id: cache_handling_class.php,v 1.9 2005/08/31 10:32:32 streaky Exp $ */
+/* $Id: cache_handling_class.php,v 1.10 2005/08/31 10:33:22 streaky Exp $ */
 
 class cache_handler {
 
@@ -123,7 +123,7 @@ class cache_handler {
 	function _delete_pattern($str = "*.cache.php") {
 		$dir = $this->_options['data_dir'];
 		foreach(glob("{$dir}{$str}") as $fn) {
-			@unlink($fn);
+			unlink($fn);
 		}
 	}
 }
