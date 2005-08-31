@@ -12,7 +12,7 @@
 * 
 * @license LGPL
 * 
-* @version $Id: Wikilink.php,v 1.1 2005/08/21 15:56:16 streaky Exp $
+* @version $Id: Wikilink.php,v 1.2 2005/08/31 10:55:39 streaky Exp $
 * 
 */
 
@@ -65,20 +65,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     {
         parent::Text_Wiki_Parse($obj);
         
-        if ($this->getConf('ext_chars')) {
-         	// use an extended character set; this should
-        	// allow for umlauts and so on.  taken from the
-        	// Tavi project defaults.php file.
-			$upper = "_A-Z\xc0-\xde";
-			$lower = "_a-z0-9\xdf-\xfe";
-			$either = "_A-Za-z0-9\xc0-\xfe";
-		} else {
-			// the default character set, should be fine
-			// for most purposes.
-			$upper = "A-Z";
-			$lower = "a-z0-9";
-			$either = "A-Za-z0-9";
-		}
+
+		$either = "_A-Za-z0-9\xc0-\xfe";
 		
         // build the regular expression for finding WikiPage names.
         $this->described_regex =
@@ -99,7 +87,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             "?)";           // end subpatterns (/4)(/3)(/2)
             
                 // build the regular expression for finding WikiPage names.
-        $this->standalone_regex =
+       /* $this->standalone_regex =
             "(!?" .            // START WikiPage pattern (1)
             "[$either]" .       // 1 upp$eitherer
             "[$either]*" .     // 0+ alpha or digit
@@ -112,7 +100,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             "(" .              // start sub pattern (4)
             "[-_$either:.]*" . // 0+ dash, alpha, digit, underscore, colon, dot
             "[-_$either]" .    // 1 dash, alpha, digit, or underscore
-            ")?)?)";           // end subpatterns (/4)(/3)(/2)
+            ")?)?)";           // end subpatterns (/4)(/3)(/2)*/
     }
     
     
@@ -144,18 +132,18 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         );
         
         // standalone wiki links
-        if ($this->getConf('ext_chars')) {
+        /*if ($this->getConf('ext_chars')) {
 			$either = "A-Za-z0-9\xc0-\xfe";
 		} else {
 			$either = "A-Za-z0-9";
-		}
+		}*/
 		
-        $tmp_regex = '/(^|[^{$either}\-_])' . $this->standalone_regex . '/';
+        /*$tmp_regex = '/(^|[^{$either}\-_])' . $this->standalone_regex . '/';
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'processStandalone'),
             $this->wiki->source
-        );
+        );*/
         
     }
     
@@ -215,33 +203,12 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         // set the options
         $options = array(
             'page' => $matches[1],
-            'text' => false,
+            'text' => $matches[1],
             'anchor' => false
         );
                 
         // create and return the replacement token and preceding text
         return $this->wiki->addToken($this->rule, $options);
-    }
-    
-    function processStandalone(&$matches)
-    {
-    
-        // when prefixed with !, it's explicitly not a wiki link.
-        // return everything as it was.
-        if ($matches[2]{0} == '!') {
-            return $matches[1] . substr($matches[2], 1) . $matches[3];
-        }
-        
-        
-        // set the options
-        $options = array(
-            'page' => $matches[2],
-            'text' => $matches[2] . $matches[3],
-            'anchor' => $matches[3]
-        );
-                
-        // create and return the replacement token and preceding text
-        return $matches[1] . $this->wiki->addToken($this->rule, $options);
     }
 }
 
