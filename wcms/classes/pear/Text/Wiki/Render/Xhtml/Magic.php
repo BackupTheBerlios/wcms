@@ -8,14 +8,12 @@ class Text_Wiki_Render_Xhtml_Magic extends Text_Wiki_Render {
 		if($options[0] == "thumb") {
 			$sub_opts = explode("|", $options[1]);
 			foreach ($sub_opts as $opt) {
-				$this_opts = explode("=", $opt);
+				$this_opts[] = explode("=", $opt);
 			}
 			unset($options);
 			foreach ($this_opts as $option){
 				$options[$option['0']] = $option[1];
 			}
-			
-			
 			if(isset($options['file']) && file_exists(path::file("images").$options['file'])) {
 				if(!isset($options['maxw'])) {
 					$options['maxw'] = 20000;
