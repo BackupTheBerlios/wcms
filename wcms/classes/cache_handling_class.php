@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/cache_handling_class.php,v $
- * Revision:    $Revision: 1.10 $
- * Last Edit:   $Date: 2005/08/31 10:33:22 $
+ * Revision:    $Revision: 1.11 $
+ * Last Edit:   $Date: 2005/08/31 11:38:30 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
-/* $Id: cache_handling_class.php,v 1.10 2005/08/31 10:33:22 streaky Exp $ */
+/* $Id: cache_handling_class.php,v 1.11 2005/08/31 11:38:30 streaky Exp $ */
 
 class cache_handler {
 
@@ -56,7 +56,7 @@ class cache_handler {
 		$cache_tag = $this->_options['cache_tag'];
 		$cache_file_name = "{$data_dir}{$tag}_{$cache_tag}.cache.php";
 
-		return $this->_write_file($cache_file_name, $data);
+		//return $this->_write_file($cache_file_name, $data);
 	}
 
 	function get($tag, $timeout = -1) {
