@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.8 $
- * Last Edit:   $Date: 2005/08/30 14:11:21 $
+ * Revision:    $Revision: 1.9 $
+ * Last Edit:   $Date: 2005/09/02 09:22:47 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
-/* $Id: content_class.php,v 1.8 2005/08/30 14:11:21 streaky Exp $ */
+/* $Id: content_class.php,v 1.9 2005/09/02 09:22:47 streaky Exp $ */
 
 class content_handling {
 
@@ -46,11 +46,11 @@ class content_handling {
 	}
 
 	function retrieve($ident = "home_page", $cache_timeout = CONTENT_NO_CACHE) {
-		global $db, $cache, $wiki;
+		global $db, $cache, $wiki, $db_prefix;
 		$ident = preg_replace("#\W#", "", $ident);
 		$ret = $cache->get("wcontent_{$ident}", $cache_timeout);
 		if(!$ret) {
-			$query = "SELECT * FROM {$this->_options['content_table']} WHERE cont_ident = ".$db->quote($ident, 'text');
+			$query = "SELECT * FROM {$db_prefix}{$this->_options['content_table']} WHERE cont_ident = ".$db->quote($ident, 'text');
 			$db->setLimit(1);
 			$result = $db->query($query);
 			$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
@@ -89,10 +89,10 @@ class content_handling {
 	}
 
 	function get_pages_list() {
-		global $cache, $db;
+		global $cache, $db, $db_prefix;
 		$ret = $cache->get("content_pages");
 		if(!$ret) {
-			$query = ("SELECT cont_ident, cont_title FROM content");
+			$query = ("SELECT cont_ident, cont_title FROM {$db_prefix}content");
 			$result = $db->query($query);
 			$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 			$result->free();
@@ -152,7 +152,7 @@ class content_handling {
 
 	function _get_parent($id) {
 		global $db;
-		$query = "SELECT cont_ident, cont_title, cont_id, cont_parent_id FROM content WHERE cont_id = ".$db->quote($id, 'integer');
+		$query = "SELECT cont_ident, cont_title, cont_id, cont_parent_id FROM {$db_prefix}content WHERE cont_id = ".$db->quote($id, 'integer');
 		$db->setLimit(1);
 		$result = $db->query($query);
 		$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);

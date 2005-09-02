@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.29 $
- * Last Edit:   $Date: 2005/09/02 09:20:15 $
+ * Revision:    $Revision: 1.30 $
+ * Last Edit:   $Date: 2005/09/02 09:22:47 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 
-/* $Id: boot.php,v 1.29 2005/09/02 09:20:15 streaky Exp $ */
+/* $Id: boot.php,v 1.30 2005/09/02 09:22:47 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -145,7 +145,7 @@ require_once(path::file("classes")."session_class.php");
 $sessions =& new session_handler($session_options);
 
 // Extract user data & permissions
-$query = "SELECT * FROM users WHERE user_id = ".$db->quote($_SESSION['credentials']['user_id'], 'integer');
+$query = "SELECT * FROM {$db_prefix}users WHERE user_id = ".$db->quote($_SESSION['credentials']['user_id'], 'integer');
 $db->setLimit(1);
 $result = $db->query($query);
 $users_row = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
