@@ -71,9 +71,9 @@
  </table>
 
  <sequence>
-  <name>content</name>
+  <name><variable>table_prefix</variable>content</name>
   <on>
-   <table>content</table>
+   <table><variable>table_prefix</variable>content</table>
    <field>cont_id</field>
   </on>
  </sequence>
@@ -168,9 +168,9 @@
  </table>
 
  <sequence>
-  <name>users</name>
+  <name><variable>table_prefix</variable>users</name>
   <on>
-   <table>users</table>
+   <table><variable>table_prefix</variable>users</table>
    <field>user_id</field>
   </on>
  </sequence>
