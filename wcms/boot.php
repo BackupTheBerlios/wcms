@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.27 $
- * Last Edit:   $Date: 2005/08/31 09:29:58 $
+ * Revision:    $Revision: 1.28 $
+ * Last Edit:   $Date: 2005/09/02 09:09:14 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.27 $
+ * @version $Revision: 1.28 $
  */
 
-/* $Id: boot.php,v 1.27 2005/08/31 09:29:58 streaky Exp $ */
+/* $Id: boot.php,v 1.28 2005/09/02 09:09:14 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -98,14 +98,15 @@ $smarty->debugging = false;
 $smarty->template_dir = path::file("templates");
 $smarty->compile_dir = path::file("data")."template_cache/";
 
-$smarty->assign("theme", path::file("templates").$settings['theme']."/");
-$smarty->assign("theme_abs", path::http("templates").$settings['theme']."/");
-$smarty->assign("site_name", $settings['site']['long_name']);
-$smarty->assign("site_url", "http://{$_SERVER['HTTP_HOST']}/".path::http());
-$smarty->assign("site_root", path::http());
-$smarty->assign("site_images", path::http("images"));
+// Assign some useful smarty vars
+$smarty->assign("theme",         path::file("templates").$settings['theme']."/");
+$smarty->assign("theme_abs",     path::http("templates").$settings['theme']."/");
+$smarty->assign("site_name",     $settings['site']['long_name']);
+$smarty->assign("site_url",      "http://{$_SERVER['HTTP_HOST']}".path::http());
+$smarty->assign("site_root",     path::http());
+$smarty->assign("site_images",   path::http("images"));
 $smarty->assign("templates_abs", path::http("templates"));
-$smarty->assign("page_title", $settings['site']['long_name']);
+$smarty->assign("page_title",    $settings['site']['long_name']);
 
 $dsn = $settings['dsn'];
 require_once('MDB2/Schema.php'); // Using include path (PEAR Class)
@@ -124,7 +125,7 @@ $input_file = path::file("data")."database/schema";
 $schema_mod = $cache->get("schema_modified", (60 * 24));
 if(!$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
 	$db_name = $manager->db->database_name;
-	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $settings['db_prefix']));
+	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => "_".$settings['db_prefix']));
 	$cache->set("schema_modified", filemtime("{$input_file}.xml"));
 }
 
@@ -138,7 +139,7 @@ require_once(path::file("classes")."users_class.php");
 
 // Initiate session handler class
 $session_options = array(
-'db_object' => &$db,
+	'db_object' => &$db,
 );
 require_once(path::file("classes")."session_class.php");
 $sessions =& new session_handler($session_options);
