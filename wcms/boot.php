@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.31 $
- * Last Edit:   $Date: 2005/09/02 09:36:34 $
+ * Revision:    $Revision: 1.32 $
+ * Last Edit:   $Date: 2005/09/02 09:55:05 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.31 $
+ * @version $Revision: 1.32 $
  */
 
-/* $Id: boot.php,v 1.31 2005/09/02 09:36:34 streaky Exp $ */
+/* $Id: boot.php,v 1.32 2005/09/02 09:55:05 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -130,7 +130,7 @@ if(!$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
 }
 
 require_once(path::file("classes")."content_class.php");
-$content = new content_handling($db);
+$content = new content_handling();
 
 require_once(path::file("classes")."page_handling_class.php");
 $page_handler = new page_hander();

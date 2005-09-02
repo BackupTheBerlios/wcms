@@ -12,7 +12,7 @@
 * 
 * @license LGPL
 * 
-* @version $Id: Wikilink.php,v 1.2 2005/08/31 10:55:39 streaky Exp $
+* @version $Id: Wikilink.php,v 1.3 2005/09/02 09:55:05 streaky Exp $
 * 
 */
 
@@ -198,12 +198,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             return $matches[1] . substr($matches[2], 1) . $matches[3];
         }
         
-        
-        
         // set the options
         $options = array(
             'page' => $matches[1],
-            'text' => $matches[1],
+            'text' => false,
             'anchor' => false
         );
                 

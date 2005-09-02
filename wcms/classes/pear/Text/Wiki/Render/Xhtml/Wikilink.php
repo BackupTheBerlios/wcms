@@ -62,12 +62,15 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         // up what the user typed and what we're checking.
         $page = htmlspecialchars($page);
         $anchor = htmlspecialchars($anchor);
-        if($text) {
-			$disp = $text;
-		} elseif (isset($this->conf['titles'][$page])) {
-			$disp = $this->conf['titles'][$page]['title'];
-		}
-		
+        
+        if ($text == false && isset($this->conf['titles'][$page])) {
+        	$disp = $this->conf['titles'][$page]['title'];
+        } elseif ($text == false) {
+        	$disp = $page;
+        } elseif ($text != false) {
+        	$disp = $text;
+        }
+        
         $text = htmlspecialchars($disp);
         
         // does the page exist?
