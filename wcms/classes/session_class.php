@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/session_class.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/09/02 09:24:51 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/09/02 09:34:51 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: session_class.php,v 1.3 2005/09/02 09:24:51 streaky Exp $ */
+/* $Id: session_class.php,v 1.4 2005/09/02 09:34:51 streaky Exp $ */
 
 /**
  * Basic session handling class, options can be overwrriden by
@@ -53,9 +53,9 @@ class session_handler {
      * @access  private
      */
 	var $_session_options = array(
-	'session_lifetime' => 240,
-	'gc_probability'   => 1,
-	'gc_divisor'       => 3
+		'session_lifetime' => 240,
+		'gc_probability'   => 1,
+		'gc_divisor'       => 3
 	);
 
 	/**
@@ -138,7 +138,8 @@ class session_handler {
 	}
 
 	function session_write($sid, $data) {
-		$query = "UPDATE sessions SET
+		global $db_prefix;
+		$query = "UPDATE {$db_prefix}sessions SET
                   user_id = ".         $this->_db_object->quote(0, 'integer').",
                   session_data = ".    $this->_db_object->quote($data, 'text').",
                   session_modified = ".$this->_db_object->quote(time(), 'integer')."
