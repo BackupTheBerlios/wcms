@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.9 $
- * Last Edit:   $Date: 2005/09/02 09:22:47 $
+ * Revision:    $Revision: 1.10 $
+ * Last Edit:   $Date: 2005/09/02 09:32:32 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
-/* $Id: content_class.php,v 1.9 2005/09/02 09:22:47 streaky Exp $ */
+/* $Id: content_class.php,v 1.10 2005/09/02 09:32:32 streaky Exp $ */
 
 class content_handling {
 
@@ -151,7 +151,7 @@ class content_handling {
 	}
 
 	function _get_parent($id) {
-		global $db;
+		global $db, $db_prefix;
 		$query = "SELECT cont_ident, cont_title, cont_id, cont_parent_id FROM {$db_prefix}content WHERE cont_id = ".$db->quote($id, 'integer');
 		$db->setLimit(1);
 		$result = $db->query($query);
