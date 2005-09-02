@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.28 $
- * Last Edit:   $Date: 2005/09/02 09:09:14 $
+ * Revision:    $Revision: 1.29 $
+ * Last Edit:   $Date: 2005/09/02 09:20:15 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.28 $
+ * @version $Revision: 1.29 $
  */
 
-/* $Id: boot.php,v 1.28 2005/09/02 09:09:14 streaky Exp $ */
+/* $Id: boot.php,v 1.29 2005/09/02 09:20:15 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -73,13 +73,13 @@ require_once("classes/paths_class.php");
 $base_paths = path::parse_paths();
 path::set($base_paths['file'], $base_paths['http'], $paths);
 
-
-
 check_dirs();
 
 require_once(path::file("classes")."vars_class.php");
 
 include_once(path::file("data")."settings.php");
+
+$db_prefix = "_".$settings['db_prefix'];
 
 $cache_options = array(
 'data_dir'  => path::file("data")."cache/",
@@ -125,7 +125,7 @@ $input_file = path::file("data")."database/schema";
 $schema_mod = $cache->get("schema_modified", (60 * 24));
 if(!$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
 	$db_name = $manager->db->database_name;
-	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => "_".$settings['db_prefix']));
+	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $db_prefix));
 	$cache->set("schema_modified", filemtime("{$input_file}.xml"));
 }
 
