@@ -159,3 +159,19 @@ code {
 	background-color: #eee;
 	border: 1px solid #d3d3d6;
 }
+
+#content h1 {
+	font-size: 170%;
+}
+
+#content h2 {
+	 font-size: 150%
+}
+
+#content h3 {
+	 font-size: 130%
+}
+
+#content h4 {
+	 font-size: 110%
+}
