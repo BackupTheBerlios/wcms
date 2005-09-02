@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/edit.php,v $
- * Revision:    $Revision: 1.9 $
- * Last Edit:   $Date: 2005/08/31 11:41:46 $
+ * Revision:    $Revision: 1.10 $
+ * Last Edit:   $Date: 2005/09/02 09:27:48 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
-/* $Id: edit.php,v 1.9 2005/08/31 11:41:46 streaky Exp $ */
+/* $Id: edit.php,v 1.10 2005/09/02 09:27:48 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -52,7 +52,7 @@ if($perms['wiki']['edit_pages'] != true) {
 
 		if (vars::post('old_tag', 'wikiedit') != "") {
 
-			$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($old_tag, 'text');
+			$query = "SELECT * FROM {$db_prefix}content WHERE cont_ident = ".$db->quote($old_tag, 'text');
 			$db->setLimit(1);
 			$result = $db->query($query);
 			$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
@@ -87,7 +87,7 @@ if($perms['wiki']['edit_pages'] != true) {
 			$revisions->store_revision_history($item, $history);
 
 			// attempt the update
-			$query = "UPDATE content SET
+			$query = "UPDATE {$db_prefix}content SET
                   cont_title = ".		$db->quote(vars::post('page_title', 'wikiedit'), 'text').",
                   cont_ident = ".		$db->quote(vars::post('page_tag', 'wikiedit'), 'text').",
                   cont_revision = ".	$db->quote($new_rev, 'text').",
@@ -98,7 +98,7 @@ if($perms['wiki']['edit_pages'] != true) {
 			$db->query($query);
 
 		} else {
-			$query = "INSERT INTO content (cont_ident, cont_timestamp, cont_content, cont_title, cont_parent_id) VALUES (".$db->quote(vars::post('page_tag', 'wikiedit'), 'text').", ".$db->quote(time(), 'integer').", ".$db->quote(vars::post('page_content', 'wikiedit'), 'text').", ".$db->quote(vars::post('page_title', 'wikiedit'), 'text').", ".$db->quote(vars::post('parent_ident', 'wikiedit'), 'integer').")";
+			$query = "INSERT INTO {$db_prefix}content (cont_ident, cont_timestamp, cont_content, cont_title, cont_parent_id) VALUES (".$db->quote(vars::post('page_tag', 'wikiedit'), 'text').", ".$db->quote(time(), 'integer').", ".$db->quote(vars::post('page_content', 'wikiedit'), 'text').", ".$db->quote(vars::post('page_title', 'wikiedit'), 'text').", ".$db->quote(vars::post('parent_ident', 'wikiedit'), 'integer').")";
 			$db->query($query);
 		}
 		$tag = vars::post('page_tag', 'wikiedit');
@@ -110,7 +110,7 @@ if($perms['wiki']['edit_pages'] != true) {
 		// header("Location: {$page}");
 	}
 
-	$query = ("SELECT cont_id, cont_ident, cont_title FROM content ORDER BY cont_ident");
+	$query = ("SELECT cont_id, cont_ident, cont_title FROM {$db_prefix}content ORDER BY cont_ident");
 	$result = $db->query($query);
 	$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 	$result->free();
@@ -127,7 +127,7 @@ if($perms['wiki']['edit_pages'] != true) {
 	$path = path::http();
 	$smarty->assign("breadcrumb", "/ <a href='{$path}'>Home</a> / Editing: {$tag} /");
 
-	$query = "SELECT * FROM content WHERE cont_ident = ".$db->quote($item, 'text');
+	$query = "SELECT * FROM {$db_prefix}content WHERE cont_ident = ".$db->quote($item, 'text');
 	$db->setLimit(1);
 	$result = $db->query($query);
 	$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);

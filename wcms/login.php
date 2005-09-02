@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/login.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/08/28 19:39:09 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/09/02 09:26:32 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: login.php,v 1.3 2005/08/28 19:39:09 streaky Exp $ */
+/* $Id: login.php,v 1.4 2005/09/02 09:26:32 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -48,7 +48,7 @@ if($_POST['login']) {
 	$user_password = md5(vars::post('userpass', 'login'));
 	$user_name = preg_replace("#\W#", "", vars::post('username', 'login'));
 	
-	$query = "SELECT * FROM users
+	$query = "SELECT * FROM {$db_prefix}users
 				WHERE name = ".$db->quote($user_name, 'text')."
 				AND password = ".$db->quote($user_password, 'text');
 	
