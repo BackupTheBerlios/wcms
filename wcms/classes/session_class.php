@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/session_class.php,v $
- * Revision:    $Revision: 1.2 $
- * Last Edit:   $Date: 2005/08/21 18:00:27 $
+ * Revision:    $Revision: 1.3 $
+ * Last Edit:   $Date: 2005/09/02 09:24:51 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
-/* $Id: session_class.php,v 1.2 2005/08/21 18:00:27 streaky Exp $ */
+/* $Id: session_class.php,v 1.3 2005/09/02 09:24:51 streaky Exp $ */
 
 /**
  * Basic session handling class, options can be overwrriden by
@@ -122,13 +122,14 @@ class session_handler {
      * @return array
      */
 	function session_read($sid) {
-		$query = "SELECT * FROM sessions WHERE session_id = ".$this->_db_object->quote($sid, 'text');
+		global $db_prefix;
+		$query = "SELECT * FROM {$db_prefix}sessions WHERE session_id = ".$this->_db_object->quote($sid, 'text');
 		$this->_db_object->setLimit(1);
 		$result = $this->_db_object->query($query);
 		$rows = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
 		$result->free();
 		if(count($rows) < 1){
-			$query = "INSERT INTO sessions (session_id, user_id, session_data, session_modified) VALUES (".$this->_db_object->quote($sid, 'text').", ".$this->_db_object->quote(0, 'integer').", ".$this->_db_object->quote('', 'text').", ".$this->_db_object->quote(time(), 'integer').")";
+			$query = "INSERT INTO {$db_prefix}sessions (session_id, user_id, session_data, session_modified) VALUES (".$this->_db_object->quote($sid, 'text').", ".$this->_db_object->quote(0, 'integer').", ".$this->_db_object->quote('', 'text').", ".$this->_db_object->quote(time(), 'integer').")";
 			$this->_db_object->query($query);
 			return array();
 		} else {
@@ -147,7 +148,8 @@ class session_handler {
 	}
 
 	function session_destroy($sid) {
-		$query = "DELETE FROM sessions WHERE session_id = ".$this->_db_object->quote($sid, 'text');
+		global $db_prefix;
+		$query = "DELETE FROM {$db_prefix}sessions WHERE session_id = ".$this->_db_object->quote($sid, 'text');
 		$this->_db_object->query($query);
 		return true;
 	}
@@ -160,7 +162,8 @@ class session_handler {
      * @return bool
      */
 	function session_gc($lifetime) {
-		$query = "DELETE FROM sessions WHERE session_modified < ".$this->_db_object->quote((time() - $this->_session_options['session_lifetime']), 'integer');
+		global $db_prefix;
+		$query = "DELETE FROM {$db_prefix}sessions WHERE session_modified < ".$this->_db_object->quote((time() - $this->_session_options['session_lifetime']), 'integer');
 		$this->_db_object->query($query);
 		return true;
 	}
