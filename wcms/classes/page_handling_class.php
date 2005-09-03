@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/page_handling_class.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/08/28 06:37:34 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/09/03 17:38:16 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: page_handling_class.php,v 1.3 2005/08/28 06:37:34 streaky Exp $ */
+/* $Id: page_handling_class.php,v 1.4 2005/09/03 17:38:16 streaky Exp $ */
 
 class page_hander {
 
@@ -62,6 +62,8 @@ class page_hander {
 		
 		$smarty->assign("page_content", $this->get_page());
 		$smarty->assign("page_title", "{$settings['site']['long_name']} - {$page_title}");
+		
+		$smarty->assign("header_data", $this->get_header_data());
 		
 		$smarty->assign("page_footer", implode("\n", $this->footer_objects)."\n#RENDERTIME#");
 		
