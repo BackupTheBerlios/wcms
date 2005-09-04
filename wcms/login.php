@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/login.php,v $
- * Revision:    $Revision: 1.4 $
- * Last Edit:   $Date: 2005/09/02 09:26:32 $
+ * Revision:    $Revision: 1.5 $
+ * Last Edit:   $Date: 2005/09/04 15:22:27 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
-/* $Id: login.php,v 1.4 2005/09/02 09:26:32 streaky Exp $ */
+/* $Id: login.php,v 1.5 2005/09/04 15:22:27 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -50,7 +50,7 @@ if($_POST['login']) {
 	
 	$query = "SELECT * FROM {$db_prefix}users
 				WHERE name = ".$db->quote($user_name, 'text')."
-				AND password = ".$db->quote($user_password, 'text');
+				AND user_password = ".$db->quote($user_password, 'text');
 	
 	$db->setLimit(1);
 	$result = $db->query($query);

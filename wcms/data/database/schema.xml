@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<?xml-stylesheet type="text/xsl" href="MDB.xsl"?>
 <database>
 
  <name><variable>db_name</variable></name>
@@ -14,6 +13,7 @@
    <field>
     <name>cont_id</name>
     <type>integer</type>
+    <default>0</default>
    </field>
 
    <field>
@@ -59,24 +59,26 @@
    </field>
 
    <index>
+    <name>cont_ident</name>
+    <unique>1</unique>
+    <field>
+     <name>cont_ident</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+   <index>
     <name>cont_id</name>
     <unique>1</unique>
     <field>
      <name>cont_id</name>
+     <sorting>ascending</sorting>
     </field>
    </index>
 
   </declaration>
 
  </table>
-
- <sequence>
-  <name><variable>table_prefix</variable>content</name>
-  <on>
-   <table><variable>table_prefix</variable>content</table>
-   <field>cont_id</field>
-  </on>
- </sequence>
 
  <table>
 
@@ -129,6 +131,7 @@
    <field>
     <name>user_id</name>
     <type>integer</type>
+    <default>0</default>
    </field>
 
    <field>
@@ -156,10 +159,24 @@
    </field>
 
    <index>
+    <name>name</name>
+    <unique>1</unique>
+    <field>
+     <name>name</name>
+     <sorting>ascending</sorting>
+    </field>
+    <field>
+     <name>session_id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+   <index>
     <name>user_id</name>
     <unique>1</unique>
     <field>
      <name>user_id</name>
+     <sorting>ascending</sorting>
     </field>
    </index>
 
@@ -168,11 +185,11 @@
  </table>
 
  <sequence>
-  <name><variable>table_prefix</variable>users</name>
-  <on>
-   <table><variable>table_prefix</variable>users</table>
-   <field>user_id</field>
-  </on>
+  <name>cont_id_</name>
+ </sequence>
+
+ <sequence>
+  <name>user_id_</name>
  </sequence>
 
 </database>

@@ -3,11 +3,8 @@
 class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
     
     var $conf = array(
-        'sites' => array(
-                'wikipedia' => "http://en.wikipedia.org/wiki/%s",
-                'site' => "/%s",
-        ),
-        'target' => '_blank',
+        'sites' => array(),
+        'target' => '',
         'css' => null
     );
     

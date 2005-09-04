@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.32 $
- * Last Edit:   $Date: 2005/09/02 09:55:05 $
+ * Revision:    $Revision: 1.33 $
+ * Last Edit:   $Date: 2005/09/04 15:22:27 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.32 $
+ * @version $Revision: 1.33 $
  */
 
-/* $Id: boot.php,v 1.32 2005/09/02 09:55:05 streaky Exp $ */
+/* $Id: boot.php,v 1.33 2005/09/04 15:22:27 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -63,11 +63,11 @@ ini_set('session.use_trans_sid',    0);
 ini_set("include_path", realpath(dirname(__FILE__)).'/classes/pear/'.PATH_SEPARATOR.".");
 
 $paths = array(
-'classes'    => 'classes',
-'data'       => 'data',
-'templates'  => 'templates',
-'images'     => 'images',
-'plugins'    => 'plugins',
+	'classes'    => 'classes',
+	'data'       => 'data',
+	'templates'  => 'templates',
+	'images'     => 'images',
+	'plugins'    => 'plugins',
 );
 require_once("classes/paths_class.php");
 $base_paths = path::parse_paths();
@@ -79,11 +79,11 @@ require_once(path::file("classes")."vars_class.php");
 
 include_once(path::file("data")."settings.php");
 
-$db_prefix = "_".$settings['db_prefix'];
+$db_prefix = $settings['db_prefix'];
 
 $cache_options = array(
-'data_dir'  => path::file("data")."cache/",
-'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
+	'data_dir'  => path::file("data")."cache/",
+	'cache_tag' => md5(path::http("templates").$settings['theme']."/theme.css".filemtime(path::file("templates").$settings['theme']."/theme.css")),
 );
 require_once(path::file("classes")."cache_handling_class.php");
 $cache = new cache_handler($cache_options);
@@ -123,9 +123,12 @@ if (PEAR::isError($db)) {
 $manager =& MDB2_Schema::factory($db);
 $input_file = path::file("data")."database/schema";
 $schema_mod = $cache->get("schema_modified", (60 * 24));
-if(!$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
+
+if(!file_exists("{$input_file}.xml") || !$schema_mod || $schema_mod < filemtime("{$input_file}.xml")) {
 	$db_name = $manager->db->database_name;
-	$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $db_prefix));
+	if(!$manager->updateDatabase("{$input_file}.xml", "{$input_file}_current.xml", array('db_name' => $db_name, 'table_prefix' => $db_prefix))) {
+		die("Schema Update Error.");
+	}
 	$cache->set("schema_modified", filemtime("{$input_file}.xml"));
 }
 
@@ -177,7 +180,9 @@ $wiki->setRenderConf('xhtml', 'image', 'base', path::http("images"));
 
 $wiki->enableRule('html');
 
-$sites = array();
+$sites = array(
+	'Site' => substr(path::http(), 0, -1).'%s',
+);
 $wiki->setRenderConf('xhtml', 'interwiki', 'sites', $sites);
 
 $pages = $content->get_pages_list();
@@ -201,5 +206,8 @@ foreach ($settings['menus'] as $menu) {
 	}
 }
 $smarty->assign("menu_area", $menus);
+
+//echo $db->nextId('cont_id ');
+//echo $db->nextId('user_id ');
 
 ?>
