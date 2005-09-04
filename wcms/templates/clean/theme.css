@@ -17,33 +17,26 @@ img {
 }
 
 #container{
-	background: #f2f2f2;
-	border: 1px solid #B8A8E1;
 	margin: 10px auto;
 	padding: 10px;
-	width: 740px;
+	margin-left: 90px;
+	margin-right: 90px;
+	width: auto;
 	}
 
 #bannertop{
-	height: 74px;
-	padding: 5px; 
-	margin-bottom: 10px;
-	background-image: url("images/logo.png");
-	background-color: #1D2642;
-	background-repeat: no-repeat;
+	margin-bottom: 15px;
 	}
 
 #banner{
 	padding: 1px;
-	background-color: #C9C3DB;
+	background-color: #ffffff;
 	}
 
 #content {
-	height: 100%;
 	padding: 5px;
 	margin-left: 0px;
-	margin-top: 1em;
-	background-color: #ebebeb;
+	margin-top: 0px;
 }
 
 
@@ -70,11 +63,10 @@ img {
 	}
 
 #footer{ 
-	padding: .1em;
 	clear: both; 
-	margin-top: 5px; 
-	background-color: #D5DBE1;
-	border-bottom: 1em solid #261257;
+	text-align: right;
+	color: #CCCCCC;
+	font-size: 85%;
 	}
 
 a:link, a:active, a:visited{
@@ -91,7 +83,9 @@ hr {
 	}
 
 #navlist {
-padding-left: 17px;
+padding-left: 5px;
+font-size: 80%;
+padding-bottom: 4px;
 }
 
 #navlist li{
@@ -102,18 +96,15 @@ padding-left: 17px;
 	
 #navlist a{
 	padding: 5px;
-	font-weight: bold;
-	text-transform: uppercase;
 	text-decoration: none;
 	}
 
 #navlist a:link, #navlist a:visited{
-	color: #fff;
+	color: #000000;
 	}
 
 #navlist a:hover{
-	color: #DC783B;
-	border-bottom: 3px solid #B8A8E1;
+	color: #ffffff;
 	}
 
 #footer li a {
@@ -137,7 +128,8 @@ text-transform : uppercase;
 	}
 
 #breadcrumb{
-	margin-top: 15px;
+	margin-top: 10px;
+	margin-left: 6px;
 	color: #DC783B;
 }
 
@@ -180,11 +172,25 @@ code {
 	border: 2px solid #7F98A7;
 	padding: 0px 15px 0px 15px;
 	margin: 10px;
-	border-top-right-radius: 25pt 25pt;
 }
 
 .comment-note {
 	text-align: right;
 	color: #CCCCCC;
 	font-size: 80%;
+}
+
+.left-bar {
+  background-image: url(images/left-bar.gif);
+  background-repeat: no-repeat;
+  width: 17px;
+}
+.mid-bar {
+  background-image: url(images/mid-bar.gif);
+  background-repeat: repeat-x;
+}
+.right-bar {
+	background-image: url(images/right-bar.gif);
+	background-repeat: no-repeat;
+	width: 21px;
 }

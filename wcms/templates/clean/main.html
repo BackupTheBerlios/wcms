@@ -1,19 +1,18 @@
 {include file="header.html"}
 <div id="container">
-  <div id="bannertop"></div>
-  <div id="banner">
-    <div id="navcontainer">{$nav_ul}</div>
-  </div>
-  <div id="breadcrumb">{$breadcrumb}</div>
-  <div id="content">
-    <div id="sidebar-a">{$menu_area}</div>
-    <div style="overflow: auto;">{$page_content}</div>
-	</div>
-	<div id="footer">{$page_footer}</div>
-  </div>
-<div style="text-align: center;">
-  <a href="http://wcms.berlios.de/" onclick="window.open(this.href, '_blank'); return false;">
-    <img src="{$site_images}logo_glow-trans.png" title="Powered by wCMS" alt="wCMS Logo Button" />
-  </a>
+<div id="bannertop"><img src="{$theme_abs}images/logo-trans.png" alt="WikiCMS Logo" /></div>
+<table style="width: 100%; border-collapse: collapse; border-spacing: 0px;">
+<tr style="height: 54px;">
+  <td class="left-bar">&nbsp;</td>
+  <td class="mid-bar"><div id="navcontainer">{$nav_ul}</div></td>
+  <td class="right-bar">&nbsp;</td>
+</tr>
+<table>
+<div id="breadcrumb">{$breadcrumb}</div>
+<div id="content">
+  <div id="sidebar-a">{$menu_area}</div>
+  <div style="overflow: auto;">{$page_content}</div>
+</div>
+<div id="footer">{$page_footer}</div>
 </div>
 {include file="footer.html"}
