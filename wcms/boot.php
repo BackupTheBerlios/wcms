@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.34 $
- * Last Edit:   $Date: 2005/09/05 10:54:49 $
+ * Revision:    $Revision: 1.35 $
+ * Last Edit:   $Date: 2005/09/05 10:57:58 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 
-/* $Id: boot.php,v 1.34 2005/09/05 10:54:49 streaky Exp $ */
+/* $Id: boot.php,v 1.35 2005/09/05 10:57:58 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -148,6 +148,30 @@ $session_options = array(
 );
 require_once(path::file("classes")."session_class.php");
 $sessions =& new session_handler($session_options);
+
+if($_POST['login']) {
+	$user_password = md5(vars::post('userpass', 'login'));
+	$user_name = preg_replace("#\W#", "", vars::post('username', 'login'));
+	
+	$query = "SELECT * FROM {$db_prefix}users
+				WHERE name = ".$db->quote($user_name, 'text')."
+				AND user_password = ".$db->quote($user_password, 'text');
+	
+	$db->setLimit(1);
+	$result = $db->query($query);
+	$user_row = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+	$result->free();
+	
+	if(count($user_row) == 1) {
+		$_SESSION['credentials']['username'] = $user_name;
+		$_SESSION['credentials']['password'] = $user_password;
+		$_SESSION['credentials']['user_id']  = $user_row[0]['user_id'];
+	} else {
+		$_SESSION['credentials']['user_id']  = 0;
+	}
+	header("Location: {$_SERVER['PHP_SELF']}".($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : ""));
+	exit();
+}
 
 $cache->clear();
 

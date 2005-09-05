@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/login.php,v $
- * Revision:    $Revision: 1.5 $
- * Last Edit:   $Date: 2005/09/04 15:22:27 $
+ * Revision:    $Revision: 1.6 $
+ * Last Edit:   $Date: 2005/09/05 10:57:58 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,12 +27,12 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
-/* $Id: login.php,v 1.5 2005/09/04 15:22:27 streaky Exp $ */
+/* $Id: login.php,v 1.6 2005/09/05 10:57:58 streaky Exp $ */
 
-require_once("boot.php");
+
 
 if($settings['secure_login'] == true && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
 	$QUERY = ($_SERVER['QUERY_STRING'] ? "?{$_SERVER['QUERY_STRING']}" : "");
@@ -43,30 +43,6 @@ if($settings['secure_login'] == true && (!isset($_SERVER['HTTPS']) || $_SERVER['
 $smarty->assign("breadcrumb", "/ <a href='/' title='Go to Home'>Home</a> / User Login /");
 $response = "";
 $content_output = "";
-
-if($_POST['login']) {
-	$user_password = md5(vars::post('userpass', 'login'));
-	$user_name = preg_replace("#\W#", "", vars::post('username', 'login'));
-	
-	$query = "SELECT * FROM {$db_prefix}users
-				WHERE name = ".$db->quote($user_name, 'text')."
-				AND user_password = ".$db->quote($user_password, 'text');
-	
-	$db->setLimit(1);
-	$result = $db->query($query);
-	$user_row = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
-	$result->free();
-	
-	if(count($user_row) == 1) {
-		$_SESSION['credentials']['username'] = $user_name;
-		$_SESSION['credentials']['password'] = $user_password;
-		$_SESSION['credentials']['user_id']  = $user_row[0]['user_id'];
-	} else {
-		$_SESSION['credentials']['user_id']  = 0;
-	}
-	header("Location: {$_SERVER['PHP_SELF']}");
-	exit("Debug: Redirecting to {$_SERVER['PHP_SELF']}");
-}
 
 // require form page and create $form object
 require_once(path::file("classes")."form_handling_class.php");
