@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.33 $
- * Last Edit:   $Date: 2005/09/04 15:22:27 $
+ * Revision:    $Revision: 1.34 $
+ * Last Edit:   $Date: 2005/09/05 10:54:49 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.33 $
+ * @version $Revision: 1.34 $
  */
 
-/* $Id: boot.php,v 1.33 2005/09/04 15:22:27 streaky Exp $ */
+/* $Id: boot.php,v 1.34 2005/09/05 10:54:49 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -50,6 +50,8 @@ if($register_globals == true){
 }
 
 error_reporting(E_ERROR | E_PARSE);
+
+define("WCMS_BOOTSTRAP_LOADED");
 
 // set up some options
 ini_set('arg_separator.output',     '&amp;');
