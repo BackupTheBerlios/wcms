@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/error.php,v $
- * Revision:    $Revision: 1.3 $
- * Last Edit:   $Date: 2005/08/31 10:07:24 $
+ * Revision:    $Revision: 1.4 $
+ * Last Edit:   $Date: 2005/09/05 10:32:50 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-/* $Id: error.php,v 1.3 2005/08/31 10:07:24 streaky Exp $ */
+/* $Id: error.php,v 1.4 2005/09/05 10:32:50 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -40,25 +40,13 @@ $item_data = "
 <p>Your unsuccessful attempt to access <b>http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}</b> has been logged for checking and possible rectification.</p>
 ";
         
-        $page['tag'] = "";
-        $page['edit'] = "";
-        $page['item'] = $item_data;
-        $page['date'] = time();
-        $page['footer'] = "    [ <a href='edit.php?page={$row[0]}'>Edit Page</a> ] [ Last Edited: ".date("j F Y, g:ia", $row[1])." ]
-    [ <a href='?page=AccessIbility'>Accessibility</a> ] [ <a href='?page=PrivacyPolicy'>Privacy Policy</a> ]";
-        $page['breadcrumb'] = $bread_crumb;
+require_once("boot.php");
 
+$smarty->assign("breadcrumb", "<a href='".path::http()."'>Home</a> > Error");
 
-$smarty->assign("breadcrumb", $page['breadcrumb']);
-$smarty->assign("edit", $page['edit']);
-$smarty->assign("item_content", $item_data);
-$smarty->assign("date", $page['date']);
-$smarty->assign("page_footer", $page['footer']);
+$page_handler->add_page_item($item_data, "Error (File Not Found)");
+$page_handler->add_footer("&nbsp;");
 
-$content_output = $smarty->fetch("{$settings['theme']}/generic_page_item.html");
-
-$smarty->assign("page_content", $content_output);
-
-output_page();
+$page_handler->output_page("Error (File Not Found)");
 
 ?>
