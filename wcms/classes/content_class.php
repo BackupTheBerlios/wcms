@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/classes/content_class.php,v $
- * Revision:    $Revision: 1.10 $
- * Last Edit:   $Date: 2005/09/02 09:32:32 $
+ * Revision:    $Revision: 1.11 $
+ * Last Edit:   $Date: 2005/09/06 13:04:05 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
-/* $Id: content_class.php,v 1.10 2005/09/02 09:32:32 streaky Exp $ */
+/* $Id: content_class.php,v 1.11 2005/09/06 13:04:05 streaky Exp $ */
 
 class content_handling {
 
@@ -116,7 +116,7 @@ class content_handling {
 		if($perms['wiki']['edit_pages'] == true) {
 			$buttons[] = "<a href='".path::http()."edit.php?page={$ident}'><img src='".path::http("images")."icons/edit-trans.png' alt='Edit' title='Edit Page: {$ident}' /></a>";
 			//$buttons[] = "<a href='".path::http()."delete.php?page={$item}'><img src='".path::http("images")."icons/error-trans.png' alt='Delete' title='Delete Page: {$item}' /></a>";
-			$buttons[] = "<a href='".path::http()."history.php?page={$ident}'><img src='".path::http("images")."icons/history-trans.png' alt='History' title='Last edited ".date("j F Y, g:ia", $last_mod).", revision {$revision}' /></a>";
+			//$buttons[] = "<a href='".path::http()."history.php?page={$ident}'><img src='".path::http("images")."icons/history-trans.png' alt='History' title='Last edited ".date("j F Y, g:ia", $last_mod).", revision {$revision}' /></a>";
 		}
 		return implode(" ", $buttons);
 	}
