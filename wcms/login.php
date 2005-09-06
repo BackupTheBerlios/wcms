@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/login.php,v $
- * Revision:    $Revision: 1.8 $
- * Last Edit:   $Date: 2005/09/06 12:29:59 $
+ * Revision:    $Revision: 1.9 $
+ * Last Edit:   $Date: 2005/09/06 12:33:06 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
-/* $Id: login.php,v 1.8 2005/09/06 12:29:59 streaky Exp $ */
+/* $Id: login.php,v 1.9 2005/09/06 12:33:06 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -80,14 +80,14 @@ $form_item = array (
 );
 $form->add_text_field($form_item);
 
-$form_item = array (
+/*$form_item = array (
 	'label'       => "Remember Me",
 	'checked'     => false,
 	'name'        => "login[remember]",
 	'id'          => "login-remember",
 	'description' => "Store my user credentials and log me in automatically",
 );
-$form->add_checkbox($form_item);
+$form->add_checkbox($form_item);*/
 
 $form->build_fieldset("User Credentials");
 
