@@ -20,6 +20,13 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml")){
 <title>{$page_title}</title>
 <link rel='alternate' type='application/rss+xml' title='wCMS Project News Feed' href='http://developer.berlios.de/export/rss20_bsnews.php?group_id=4484' />
 <link rel='stylesheet' href='{$theme_abs}theme.css' type='text/css' />
+
+<!--[if lt IE 7]>
+<script src="{$templates_abs}default/ie7/ie7-standard-p.js" type="text/javascript"></script>
+<script src="{$templates_abs}default/ie7/ie7-css3-selectors.js" type="text/javascript"></script>
+<script src="{$templates_abs}default/ie7/ie7-css-strict.js" type="text/javascript"></script>
+<![endif]-->
+
 {$header_data}
 </head>
 <body>
