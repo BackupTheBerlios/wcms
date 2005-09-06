@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/login.php,v $
- * Revision:    $Revision: 1.7 $
- * Last Edit:   $Date: 2005/09/06 11:14:08 $
+ * Revision:    $Revision: 1.8 $
+ * Last Edit:   $Date: 2005/09/06 12:29:59 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
-/* $Id: login.php,v 1.7 2005/09/06 11:14:08 streaky Exp $ */
+/* $Id: login.php,v 1.8 2005/09/06 12:29:59 streaky Exp $ */
 
 require_once("boot.php");
 
@@ -40,7 +40,6 @@ if($settings['secure_login'] == true && (!isset($_SERVER['HTTPS']) || $_SERVER['
 	header("Location: {$path}");
 }
 
-$smarty->assign("breadcrumb", "/ <a href='".path::http()."' title='Go to Home'>Home</a> &lt; Login");
 $response = "";
 $content_output = "";
 
@@ -111,9 +110,11 @@ $form->build_fieldset("Login / Clear Form");
 $content_output .= $form->return_form();
 unset($form);
 
-$smarty->assign("breadcrumb", $page['breadcrumb']);
-$smarty->assign("page_content", $content_output);
+$smarty->assign("breadcrumb", "<a href='".path::http()."'>Home</a> > User Login");
 
-output_page();
+$page_handler->add_page_item($content_output);
+$page_handler->add_footer("&nbsp;");
+
+$page_handler->output_page("User Login");
 
 ?>
