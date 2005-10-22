@@ -3,8 +3,8 @@
 /**
  * Project:     wCMS: Wiki style CMS
  * File:        $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/wcms/Repository/wcms/boot.php,v $
- * Revision:    $Revision: 1.35 $
- * Last Edit:   $Date: 2005/09/05 10:57:58 $
+ * Revision:    $Revision: 1.36 $
+ * Last Edit:   $Date: 2005/10/22 01:08:19 $
  * By:          $Author: streaky $
  *
  *  Copyright © 2005 Martin Nicholls
@@ -27,10 +27,10 @@
  * @copyright 2005 Martin Nicholls
  * @author Martin Nicholls <webmasta at streakyland dot co dot uk>
  * @package wCMS
- * @version $Revision: 1.35 $
+ * @version $Revision: 1.36 $
  */
 
-/* $Id: boot.php,v 1.35 2005/09/05 10:57:58 streaky Exp $ */
+/* $Id: boot.php,v 1.36 2005/10/22 01:08:19 streaky Exp $ */
 
 require_once("classes/generic_functions.php");
 
@@ -215,11 +215,10 @@ $pages = $content->get_pages_list();
 $wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages['pages']);
 $wiki->setRenderConf('xhtml', 'wikilink', 'titles', $pages['titles']);
 
-
-$wiki->setRenderConf('xhtml', 'list', 'css_ul', "navlist");
-$nav = $content->retrieve('navbar');
-$wiki->setRenderConf('xhtml', 'list', 'css_ul', null);
-$smarty->assign("nav_ul", $nav['content']);
+$nav = "";
+$nav = @file_get_contents(path::file()."nav.html");
+$nav = str_replace("#root#", path::http(), $nav);
+$smarty->assign("nav", $nav);
 
 foreach ($settings['menus'] as $menu) {
 	if($menu['type'] == 'content') {
@@ -232,8 +231,5 @@ foreach ($settings['menus'] as $menu) {
 	}
 }
 $smarty->assign("menu_area", $menus);
-
-//echo $db->nextId('cont_id ');
-//echo $db->nextId('user_id ');
 
 ?>

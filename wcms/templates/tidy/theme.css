@@ -79,3 +79,39 @@ a:hover {
 	text-align: center;
 	font-size: 80%;
 }
+
+/* cool nav thing */
+
+.mouseBeOffMe {
+border-top:    5px  solid #E5E5E5; 
+border-bottom: 3px  solid #E5E5E5; 
+border-left:   0px   solid #E5E5E5; 
+border-right:  4px  solid #E5E5E5; 
+}
+
+.mouseBeOnMe {
+border-top:    1px   solid #E5E5E5;
+border-bottom: 7px  solid #E5E5E5; 
+border-left:   4px  solid #E5E5E5; 
+border-right:  0px   solid #E5E5E5;
+}
+
+.mouseBeDown {
+border-top:    8px  solid #E5E5E5;
+border-bottom: 0px   solid #E5E5E5; 
+border-left:   4px  solid #E5E5E5; 
+border-right:  0px   solid #E5E5E5;
+}
+
+.mouseBeUp {
+border-top:    5px  solid #E5E5E5;
+border-bottom: 3px  solid #E5E5E5; 
+border-left:   4px  solid #E5E5E5; 
+border-right:  0px   solid #E5E5E5;
+}
+
+#nav_bar {
+	position: absolute;
+	margin-top: -25px;
+	margin-left: 667px;
+}
